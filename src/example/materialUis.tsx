@@ -73,21 +73,21 @@ export const materialUis: IMaterialUIs = {
   //规则校验节点
   [NodeType.rule]: {
     viewContent: (node: IWorkFlowNode<any>, { t }) => {
-      return <ContentPlaceholder text={t("pleaseSetRule")} />
+      return <ContentPlaceholder text={t("rule")} />
     },
     canOpenSettings: true
   },
   //错别字检查节点
   [NodeType.spellCheck]: {
     viewContent: (node: IWorkFlowNode<any>, { t }) => {
-      return <ContentPlaceholder text={t("pleaseSetSpellCheck")} />
+      return <ContentPlaceholder text={t("spellCheck")} />
     },
     canOpenSettings: false
   },
   //生成批注节点
   [NodeType.generateComment]: {
     viewContent: (node: IWorkFlowNode<any>, { t }) => {
-      return <ContentPlaceholder text={t("pleaseSetGenerateComment")} />
+      return <ContentPlaceholder text={t("generateComment")} />
     },
     canOpenSettings: false
   },

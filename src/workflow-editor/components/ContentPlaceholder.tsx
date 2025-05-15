@@ -10,7 +10,9 @@ export const ContentPlaceholder = memo((
   const { text, secondary } = props
   return (
     <span
-      className={className("text", secondary ? " secondary" : "")}>
+      className={className("text", secondary ? " secondary" : "")}
+      style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+    >
       {text}
     </span>
   )
