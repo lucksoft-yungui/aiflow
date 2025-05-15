@@ -1,6 +1,6 @@
 import { CloseOutlined } from "@ant-design/icons"
 import { Button, Drawer } from "antd"
-import { memo, useCallback } from "react"
+import { memo, useCallback, useEffect, useState } from "react"
 import { NodeTitle } from "./NodeTitle"
 import { Footer } from "./Footer"
 import { useSelectedNode } from "../../hooks/useSelectedNode"
@@ -13,23 +13,37 @@ const Content = styled.div`
   flex-flow: column;
 `
 export const SettingsPanel = memo(() => {
+
   const selectedNode = useSelectedNode()
   const materialUi = useMaterialUI(selectedNode)
   const store = useEditorEngine()
+  
+  const [config, setConfig] = useState(selectedNode?.config);
+
+  useEffect(() => {
+    setConfig(selectedNode?.config);
+  }, [selectedNode]);
+
   const handelClose = useCallback(() => {
     store?.selectNode(undefined)
   }, [store])
 
   const handleConfirm = useCallback(() => {
+    if (selectedNode && config) {
+      store?.changeNode({ ...selectedNode, config })
+    }
     store?.selectNode(undefined)
-  }, [store])
+  }, [store, selectedNode, config])
 
   const handleNameChange = useCallback((name?: string) => {
-
-  }, [])
+    if (selectedNode && name !== undefined) {
+      store?.changeNode({ ...selectedNode, name })
+    }
+  }, [selectedNode, store])
 
   const handleSettingsChange = useCallback((value: any) => {
-
+    console.log("config settings change", value);
+    setConfig(value);
   }, [])
   return (
     <Drawer
@@ -60,7 +74,7 @@ export const SettingsPanel = memo(() => {
       open={!!selectedNode}
     >
       <Content className="settings-panel-content">
-        {materialUi?.settersPanel && <materialUi.settersPanel value={""} onChange={handleSettingsChange} />}
+        {materialUi?.settersPanel && <materialUi.settersPanel value={selectedNode?.config} onChange={handleSettingsChange} />}
       </Content>
     </Drawer>
   )

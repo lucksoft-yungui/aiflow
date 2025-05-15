@@ -1,12 +1,11 @@
 import { memo, useState } from "react"
-import { QuestionCircleOutlined } from "@ant-design/icons"
-import { FormAuth } from "./FormAuth"
-import { Form } from "antd"
-import { ButtonSelect, MemberSelect } from "../../workflow-editor"
 import { useTranslate } from "../../workflow-editor/react-locales"
+import { Checkbox } from 'antd';
+import type { CheckboxProps } from 'antd';
+
 
 export interface IStartSettings {
-
+  test: boolean
 }
 
 export const StartPanel = memo((
@@ -15,31 +14,16 @@ export const StartPanel = memo((
     onChange?: (value?: IStartSettings) => void
   }
 ) => {
-  const [settingsType, setSettingsType] = useState<string>("node")
+  const [config, setConfig] = useState<IStartSettings>(props.value || { test: false });
   const t = useTranslate()
 
+  const onTestChange: CheckboxProps['onChange'] = (e) => {
+    console.log(`checked = ${e.target.checked}`);
+    setConfig({ ...config, test: e.target.checked })
+    props.onChange?.(config)
+  };
+
   return (
-    <Form layout="vertical" colon={false}>
-      <ButtonSelect
-        options={[
-          {
-            key: "node",
-            label: t("setPromoter"),
-          },
-          {
-            key: "formAuth",
-            label: <>{t("formAuth")} <QuestionCircleOutlined /></>
-          }
-        ]}
-        value={settingsType}
-        onChange={setSettingsType}
-      />
-      {settingsType === "node" && <>
-        <Form.Item label={t("whoCanSubmit")} style={{ marginTop: 16 }}>
-          <MemberSelect />
-        </Form.Item>
-      </>}
-      {settingsType === 'formAuth' && <FormAuth />}
-    </Form>
+    <Checkbox onChange={onTestChange}>Checkbox</Checkbox>
   )
 })
