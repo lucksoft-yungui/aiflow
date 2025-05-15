@@ -30,7 +30,7 @@ export const StartNode = memo(() => {
         </NodeTitleShell>
         <NodeContent className="content">
           {materialUi?.viewContent && materialUi?.viewContent(startNode, { t })}
-          <RightOutlined className="arrow" />
+          {materialUi?.canOpenSettings && <RightOutlined className="arrow" />}  
         </NodeContent>
         {startNode?.id && <ErrorTip nodeId={startNode.id} />}
       </NodeWrapBox>

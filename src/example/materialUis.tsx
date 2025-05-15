@@ -52,7 +52,8 @@ export const materialUis: IMaterialUIs = {
         return t("noSetCondition")
       }
       return true
-    }
+    },
+    canOpenSettings: true
   },
   //通知人节点
   [NodeType.notifier]: {
@@ -67,5 +68,27 @@ export const materialUis: IMaterialUIs = {
       return <ContentPlaceholder text={t("allMember")} />
     },
     settersPanel: StartPanel,
+    canOpenSettings: false
+  },
+  //规则校验节点
+  [NodeType.rule]: {
+    viewContent: (node: IWorkFlowNode<any>, { t }) => {
+      return <ContentPlaceholder text={t("pleaseSetRule")} />
+    },
+    canOpenSettings: true
+  },
+  //错别字检查节点
+  [NodeType.spellCheck]: {
+    viewContent: (node: IWorkFlowNode<any>, { t }) => {
+      return <ContentPlaceholder text={t("pleaseSetSpellCheck")} />
+    },
+    canOpenSettings: false
+  },
+  //生成批注节点
+  [NodeType.generateComment]: {
+    viewContent: (node: IWorkFlowNode<any>, { t }) => {
+      return <ContentPlaceholder text={t("pleaseSetGenerateComment")} />
+    },
+    canOpenSettings: false
   },
 }

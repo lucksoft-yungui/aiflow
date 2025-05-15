@@ -1,4 +1,4 @@
-import { routeIcon, dealIcon, notifierIcon, sealIcon } from "../icons";
+import { routeIcon, dealIcon, notifierIcon, sealIcon, ruleIcon, spellCheckIcon, generateCommentIcon } from "../icons";
 import { NodeType } from "../interfaces";
 import { INodeMaterial } from "../interfaces/material";
 import { createUuid } from "../utils/create-uuid";
@@ -19,29 +19,56 @@ export const defaultMaterials: INodeMaterial[] = [
     hidden: true,
   },
   //审批人节点
+  // {
+  //   color: "#ff943e",
+  //   label: "approver",
+  //   icon: sealIcon,
+  //   defaultConfig: {
+  //     nodeType: NodeType.approver,
+  //   },
+  // },
+  // //通知人节点
+  // {
+  //   color: "#4ca3fb",
+  //   label: "notifier",
+  //   icon: notifierIcon,
+  //   defaultConfig: {
+  //     nodeType: NodeType.notifier,
+  //   },
+  // },
+  // {
+  //   color: "#fb602d",
+  //   label: "dealer",
+  //   icon: dealIcon,
+  //   defaultConfig: {
+  //     nodeType: NodeType.audit,
+  //   },
+  // },
+  // 规则校验节点
   {
     color: "#ff943e",
-    label: "approver",
-    icon: sealIcon,
+    label: "rule",
+    icon: ruleIcon,
     defaultConfig: {
-      nodeType: NodeType.approver,
+      nodeType: NodeType.rule,
     },
   },
-  //通知人节点
+  //错别字检查节点
   {
-    color: "#4ca3fb",
-    label: "notifier",
-    icon: notifierIcon,
+    color: "#8e44ad",
+    label: "spellCheck",
+    icon: spellCheckIcon,
     defaultConfig: {
-      nodeType: NodeType.notifier,
+      nodeType: NodeType.spellCheck,
     },
   },
+  //生成批注节点
   {
-    color: "#fb602d",
-    label: "dealer",
-    icon: dealIcon,
+    color: "#f39c12",
+    label: "generateComment",
+    icon: generateCommentIcon,
     defaultConfig: {
-      nodeType: NodeType.audit,
+      nodeType: NodeType.generateComment,
     },
   },
   //条件节点

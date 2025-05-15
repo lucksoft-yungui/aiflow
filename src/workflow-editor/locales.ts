@@ -17,7 +17,7 @@ export const defalutLocales: ILocales = {
     dealer: "办理人",
     routeNode: "条件分支",
     condition: "条件",
-    promoter: "发起人",
+    promoter: "开始节点",
     allMember: "所有人",
     flowFinished: "流程结束",
     addCondition: "添加条件",
@@ -68,7 +68,10 @@ export const defalutLocales: ILocales = {
     empty: "为空",
     addExpression: "添加条件",
     addAndGroup: "添加且组",
-    addOrGroup: "添加或组"
+    addOrGroup: "添加或组",
+    rule: "规则校验",
+    spellCheck: "错别字检查",
+    generateComment: "生成批注",
   },
   'en-US': {
     baseSettings: "Base Settings",
@@ -86,7 +89,7 @@ export const defalutLocales: ILocales = {
     dealer: "Dealer",
     routeNode: "Condition Branch",
     condition: "Condition",
-    promoter: "Promoter",
+    promoter: "Start Node",
     allMember: "All",
     flowFinished: "Flow Finished",
     addCondition: "Add Condition",
@@ -138,5 +141,8 @@ export const defalutLocales: ILocales = {
     addExpression: "Add Expression",
     addAndGroup: "Add And Group",
     addOrGroup: "Add Or Group",
+    rule: "Rule Check",
+    spellCheck: "Spell Check",
+    generateComment: "Generate Comment",
   }
 }

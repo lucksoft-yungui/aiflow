@@ -71,7 +71,7 @@ export const SettingsPanel = memo(() => {
         />
       }
       onClose={handelClose}
-      open={!!selectedNode}
+      open={!!selectedNode && !!materialUi?.canOpenSettings}
     >
       <Content className="settings-panel-content">
         {materialUi?.settersPanel && <materialUi.settersPanel value={selectedNode?.config} onChange={handleSettingsChange} />}

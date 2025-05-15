@@ -11,6 +11,12 @@ export enum NodeType {
   route = "route",
   //分支节点
   condition = "condition",
+  // 规则校验节点
+  rule = "rule",
+  // 错别字检查节点
+  spellCheck = "spellCheck",
+  // 生成批注节点
+  generateComment = "generateComment"
 }
 
 //审批流节点

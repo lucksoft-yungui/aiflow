@@ -133,7 +133,7 @@ export const NormalNode = memo((
         <NodeTitle node={node} material={material} />
         <NodeContent className="content">
           {materialUi?.viewContent && materialUi?.viewContent(node, { t })}
-          <RightOutlined className="arrow" />
+          {materialUi?.canOpenSettings && <RightOutlined className="arrow" />}
         </NodeContent>
         <ErrorTip nodeId={node.id} />
       </NodeWrapBox>
