@@ -42,7 +42,7 @@ export const materialUis: IMaterialUIs = {
   [NodeType.condition]: {
     //节点内容区
     viewContent: (node: IWorkFlowNode<IConditionSettings>, { t }) => {
-      return <ContentPlaceholder text={t("pleaseSetCondition")} />
+      return <ContentPlaceholder text={t("conditionBranch")} />
     },
     //属性面板
     settersPanel: ConditionPanel,
@@ -53,7 +53,7 @@ export const materialUis: IMaterialUIs = {
       }
       return true
     },
-    canOpenSettings: true
+    canOpenSettings: false
   },
   //通知人节点
   [NodeType.notifier]: {
