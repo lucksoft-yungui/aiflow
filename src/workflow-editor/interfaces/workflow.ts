@@ -31,7 +31,20 @@ export interface IWorkFlowNode<Config = unknown>{
   //子节点
   childNode?: IWorkFlowNode
   //配置
-  config?: Config
+  config?: Config,
+  // 智能体
+  agent?: {
+    key: string,
+    title: string,
+    pretreatment: string,
+    level: string,
+    rule: {
+      decisionRules: string,
+      question: string,
+      example: string
+    },
+    directory: string[]
+  }
 }
 
 //条件根节点，下面包含各分支节点

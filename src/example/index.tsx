@@ -1,9 +1,10 @@
 import { Button, Space } from "antd"
-import { memo, useCallback, useState } from "react"
+import { memo, useCallback, useState, useEffect } from "react"
 import { ShellContainer } from "./ShellContainer"
 import { styled } from "styled-components"
 import { WorkflowEditor } from "./WorkflowEditor"
 import { materialUis } from "./materialUis"
+import { syncThemeMode } from "./ThemeUtils"
 
 const Toolbar = styled.div`
   height: 56px;
@@ -31,6 +32,11 @@ export const Example = memo(() => {
   const handleSwitchLang = useCallback(() => {
     setlang(lang => lang === Lang.cn ? Lang.en : Lang.cn)
   }, [])
+
+  // 同步主题模式到 body 属性
+  useEffect(() => {
+    syncThemeMode(themeMode)
+  }, [themeMode])
 
   return (
     <ShellContainer>

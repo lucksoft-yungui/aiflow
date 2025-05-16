@@ -18,10 +18,10 @@ export const SettingsPanel = memo(() => {
   const materialUi = useMaterialUI(selectedNode)
   const store = useEditorEngine()
   
-  const [config, setConfig] = useState(selectedNode?.config);
+  const [agent, setAgent] = useState(selectedNode?.agent);
 
   useEffect(() => {
-    setConfig(selectedNode?.config);
+    setAgent(selectedNode?.agent);
   }, [selectedNode]);
 
   const handelClose = useCallback(() => {
@@ -29,11 +29,11 @@ export const SettingsPanel = memo(() => {
   }, [store])
 
   const handleConfirm = useCallback(() => {
-    if (selectedNode && config) {
-      store?.changeNode({ ...selectedNode, config })
+    if (selectedNode && agent) {
+      store?.changeNode({ ...selectedNode, agent })
     }
     store?.selectNode(undefined)
-  }, [store, selectedNode, config])
+  }, [store, selectedNode, agent])
 
   const handleNameChange = useCallback((name?: string) => {
     if (selectedNode && name !== undefined) {
@@ -43,7 +43,7 @@ export const SettingsPanel = memo(() => {
 
   const handleSettingsChange = useCallback((value: any) => {
     console.log("config settings change", value);
-    setConfig(value);
+    setAgent(value);
   }, [])
   return (
     <Drawer
@@ -74,7 +74,7 @@ export const SettingsPanel = memo(() => {
       open={!!selectedNode && !!materialUi?.canOpenSettings}
     >
       <Content className="settings-panel-content">
-        {materialUi?.settersPanel && <materialUi.settersPanel value={selectedNode?.config} onChange={handleSettingsChange} />}
+        {materialUi?.settersPanel && <materialUi.settersPanel value={agent} onChange={handleSettingsChange} />}
       </Content>
     </Drawer>
   )

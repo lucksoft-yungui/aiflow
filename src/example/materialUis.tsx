@@ -4,7 +4,7 @@ import { AuditPanel, IAuditSettings } from "./setters/AuditPanel";
 import { ConditionPanel, IConditionSettings } from "./setters/ConditionPanel";
 import { INotifierSettings, NotifierPanel } from "./setters/NotifierPanel";
 import { IStartSettings, StartPanel } from "./setters/StartPanel";
-
+import { IRuleSettings, RulePanel } from "./setters/RulePanel";
 export const materialUis: IMaterialUIs = {
   //审批人物料UI
   [NodeType.approver]: {
@@ -72,9 +72,10 @@ export const materialUis: IMaterialUIs = {
   },
   //规则校验节点
   [NodeType.rule]: {
-    viewContent: (node: IWorkFlowNode<any>, { t }) => {
+    viewContent: (node: IWorkFlowNode<IRuleSettings>, { t }) => {
       return <ContentPlaceholder text={t("rule")} />
     },
+    settersPanel: RulePanel,
     canOpenSettings: true
   },
   //错别字检查节点
