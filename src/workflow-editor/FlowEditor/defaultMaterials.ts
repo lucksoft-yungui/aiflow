@@ -14,6 +14,11 @@ export const defaultMaterials: INodeMaterial[] = [
     defaultConfig: {
       //默认配置，可以把类型上移一层，但是如果增加其它默认属性的话，不利于扩展
       nodeType: NodeType.start,
+      agent: {
+        key: "ExtractDocumentAgent",
+        pretreatment: true,
+        level: "文档结构分析",
+      }
     },
     //不在物料板显示
     hidden: true,
@@ -51,6 +56,10 @@ export const defaultMaterials: INodeMaterial[] = [
     icon: ruleIcon,
     defaultConfig: {
       nodeType: NodeType.rule,
+      agent: {
+        key: "SemanticAnalysisAgent",
+        pretreatment: false,
+      }
     },
   },
   //错别字检查节点
@@ -60,6 +69,11 @@ export const defaultMaterials: INodeMaterial[] = [
     icon: spellCheckIcon,
     defaultConfig: {
       nodeType: NodeType.spellCheck,
+      agent: {
+        key: "SpellCheckAgent",
+        pretreatment: false,
+        level: "文档基础校验",
+      }
     },
   },
   //生成批注节点
@@ -69,6 +83,11 @@ export const defaultMaterials: INodeMaterial[] = [
     icon: generateCommentIcon,
     defaultConfig: {
       nodeType: NodeType.generateComment,
+      agent: {
+        key: "CommentAgent",
+        pretreatment: false,
+        level: "校验结果处理",
+      }
     },
   },
   //条件节点
