@@ -6,7 +6,7 @@ export function useDocumentJson() {
   
   const getDocumentJson = useCallback(() => {
     const documentJson = { startNode };
-    console.log("Current document JSON structure:", documentJson);
+    //console.log("Current document JSON structure:", documentJson);
     return documentJson;
   }, [startNode]);
 

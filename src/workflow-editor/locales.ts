@@ -88,6 +88,7 @@ export const defalutLocales: ILocales = {
     pleaseSelectCorrectExample: "请选择正确示例",
     theWholeDocument: "整个文档",
     conditionBranch: "分支节点",
+    ruleManagement: "规则管理",
   },
   'en-US': {
     baseSettings: "Base Settings",
@@ -176,5 +177,6 @@ export const defalutLocales: ILocales = {
     pleaseSelectCorrectExample: "Please select correct example",
     theWholeDocument: "The whole document",
     conditionBranch: "Condition Branch",
+    ruleManagement: "Rule Management",
   }
 }

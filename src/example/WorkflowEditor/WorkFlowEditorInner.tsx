@@ -65,13 +65,13 @@ export const WorkFlowEditorInner = memo((props: {
           <Space>
             <Button shape="circle" icon={<LeftOutlined />} />
             <Avatar shape="square" style={{ backgroundColor: "rgba(44,121,245, 0.2)", color: "#2c79f6" }} icon={<RocketOutlined />} />
-            请假管理
+            {t("ruleManagement")}
           </Space>
         }
         actions={
           <Space>
-            <Button type="text" icon={<QuestionCircleOutlined />}>{t("help")}</Button>
-            <Button type="text" icon={<MobileOutlined />}>{t("preview")}</Button>
+            {/* <Button type="text" icon={<QuestionCircleOutlined />}>{t("help")}</Button>
+            <Button type="text" icon={<MobileOutlined />}>{t("preview")}</Button> */}
             <Button type="text" icon={<SaveOutlined />} onClick={handleSave}>{t("save")}</Button>
             <PublishButton />
             <Dropdown menu={{ items }} trigger={['click']}>
@@ -80,7 +80,7 @@ export const WorkFlowEditorInner = memo((props: {
           </Space>
         }
       >
-        <NavTabs
+        {/* <NavTabs
           options={
             [
               {
@@ -103,7 +103,7 @@ export const WorkFlowEditorInner = memo((props: {
           }
           value={selectedTab}
           onChange={handleNavChange}
-        />
+        /> */}
 
       </Toolbar>
       {
