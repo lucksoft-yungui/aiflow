@@ -1,11 +1,11 @@
 import { EllipsisOutlined, ExportOutlined, ImportOutlined, LeftOutlined, MobileOutlined, QuestionCircleOutlined, RocketOutlined, SaveOutlined } from "@ant-design/icons"
-import { Avatar, Button, Dropdown, MenuProps, Space } from "antd"
+import { Avatar, Button, Dropdown, MenuProps, Space, message } from "antd"
 import { memo, useCallback, useMemo, useState } from "react"
 import { styled } from "styled-components"
 import classNames from "classnames"
 import { NavTabs, Toolbar, FlowEditorCanvas, useImport } from "../../workflow-editor"
 import { useTranslate } from "../../workflow-editor/react-locales"
-import { useExport } from "../../workflow-editor"
+import { useExport, useDocumentJson } from "../../workflow-editor"
 import { PublishButton } from "./PublishButton"
 
 const Container = styled.div`
@@ -31,6 +31,13 @@ export const WorkFlowEditorInner = memo((props: {
   const t = useTranslate()
   const exportjson = useExport()
   const importJson = useImport()
+  const getDocumentJson = useDocumentJson()
+
+  const handleSave = useCallback(() => {
+    const documentJson = getDocumentJson();
+    console.log("保存文档:", documentJson);
+    message.success(t("operateSuccess"));
+  }, [getDocumentJson, t]);
 
   const items: MenuProps['items'] = useMemo(() => [
     {
@@ -65,7 +72,7 @@ export const WorkFlowEditorInner = memo((props: {
           <Space>
             <Button type="text" icon={<QuestionCircleOutlined />}>{t("help")}</Button>
             <Button type="text" icon={<MobileOutlined />}>{t("preview")}</Button>
-            <Button type="text" icon={<SaveOutlined />}>{t("save")}</Button>
+            <Button type="text" icon={<SaveOutlined />} onClick={handleSave}>{t("save")}</Button>
             <PublishButton />
             <Dropdown menu={{ items }} trigger={['click']}>
               <Button icon={<EllipsisOutlined />} />
