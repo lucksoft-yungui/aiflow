@@ -17,7 +17,7 @@ export const defalutLocales: ILocales = {
     dealer: "办理人",
     routeNode: "条件分支",
     condition: "条件",
-    promoter: "开始节点",
+    promoter: "文档解析",
     allMember: "所有人",
     flowFinished: "流程结束",
     addCondition: "添加条件",
@@ -86,6 +86,7 @@ export const defalutLocales: ILocales = {
     pleaseSelectRuleClassification: "请选择规则分类",
     correctExample: "正确示例",
     pleaseSelectCorrectExample: "请选择正确示例",
+    theWholeDocument: "整个文档",
   },
   'en-US': {
     baseSettings: "Base Settings",
@@ -103,7 +104,7 @@ export const defalutLocales: ILocales = {
     dealer: "Dealer",
     routeNode: "Condition Branch",
     condition: "Condition",
-    promoter: "Start Node",
+    promoter: "Document Parsing",
     allMember: "All",
     flowFinished: "Flow Finished",
     addCondition: "Add Condition",
@@ -172,5 +173,6 @@ export const defalutLocales: ILocales = {
     pleaseSelectRuleClassification: "Please select rule classification",
     correctExample: "Correct Example",
     pleaseSelectCorrectExample: "Please select correct example",
+    theWholeDocument: "The whole document",
   }
 }

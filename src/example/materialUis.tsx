@@ -65,7 +65,7 @@ export const materialUis: IMaterialUIs = {
   //发起人节点
   [NodeType.start]: {
     viewContent: (node: IWorkFlowNode<IStartSettings>, { t }) => {
-      return <ContentPlaceholder text={t("allMember")} />
+      return <ContentPlaceholder text={t("theWholeDocument")} />
     },
     settersPanel: StartPanel,
     canOpenSettings: false
