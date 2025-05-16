@@ -6,6 +6,7 @@ import { LocalesContext } from "../../react-locales"
 import { defalutLocales } from "../../locales"
 import { IMaterialUIs, INodeMaterial } from "../../interfaces/material"
 import { FlowEditorScopeInner } from "./FlowEditorScopeInner"
+import { IFlowJson } from "../../hooks/useImport"
 
 export const FlowEditorScope = memo((props: {
   //当前主题模式
@@ -21,6 +22,10 @@ export const FlowEditorScope = memo((props: {
   materials?: INodeMaterial[],
   //所有物料的Ui配置，包括自定义物料跟预定义物料
   materialUis?: IMaterialUIs,
+  //初始化的文档JSON
+  initialJson?: IFlowJson | any, // 允许任何结构的数据
+  //JSON字符串
+  jsonString?: string,
 }) => {
   const { children, lang, locales, ...other } = props
   const [localesManager, setLocalesManager] = useState(new LocalesManager(lang, defalutLocales))
