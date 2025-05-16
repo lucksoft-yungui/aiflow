@@ -1,11 +1,12 @@
 import { Button, Space, message, Upload, Input, Modal } from "antd"
-import { memo, useCallback, useState, useEffect } from "react"
+import { memo, useCallback, useState, useEffect, useRef } from "react"
 import { ShellContainer } from "./ShellContainer"
 import { styled } from "styled-components"
 import { WorkflowEditor } from "./WorkflowEditor"
+import { WorkflowEditorRef } from "./WorkflowEditor/WorkFlowEditorInner"
 import { materialUis } from "./materialUis"
 import { syncThemeMode } from "./ThemeUtils"
-import { UploadOutlined, FileOutlined, CodeOutlined } from "@ant-design/icons"
+import { UploadOutlined, FileOutlined, CodeOutlined, SaveOutlined, ImportOutlined, ExportOutlined } from "@ant-design/icons"
 import { IFlowJson } from "../workflow-editor/hooks/useImport"
 import { sampleFlowJson } from "./sampleData"
 
@@ -33,6 +34,7 @@ export const Example = memo(() => {
   const [jsonString, setJsonString] = useState<string | undefined>()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [jsonTextArea, setJsonTextArea] = useState("")
+  const editorRef = useRef<WorkflowEditorRef>(null)
 
   const handleToggleTheme = useCallback(() => {
     setThemeMode(mode => mode === "light" ? "dark" : "light")
@@ -125,6 +127,37 @@ export const Example = memo(() => {
     }
   }, [jsonTextArea]);
 
+  // 使用ref调用导出方法
+  const handleExport = useCallback(() => {
+    if (editorRef.current) {
+      editorRef.current.exportJson();
+      console.log('通过ref调用导出方法');
+    } else {
+      message.error('编辑器实例未准备好');
+    }
+  }, []);
+
+  // 使用ref调用导入方法
+  const handleImport = useCallback(() => {
+    if (editorRef.current) {
+      editorRef.current.importJson();
+      console.log('通过ref调用导入方法');
+    } else {
+      message.error('编辑器实例未准备好');
+    }
+  }, []);
+
+  // 使用ref获取当前文档JSON
+  const handleGetDocumentJson = useCallback(() => {
+    if (editorRef.current) {
+      const json = editorRef.current.getDocumentJson();
+      console.log('当前文档结构:', json);
+      message.success('已在控制台输出当前文档结构');
+    } else {
+      message.error('编辑器实例未准备好');
+    }
+  }, []);
+
   // 同步主题模式到 body 属性
   useEffect(() => {
     syncThemeMode(themeMode)
@@ -149,6 +182,24 @@ export const Example = memo(() => {
           >
             JSON编辑器
           </Button>
+          <Button
+            icon={<SaveOutlined />}
+            onClick={handleGetDocumentJson}
+          >
+            获取当前JSON
+          </Button>
+          <Button
+            icon={<ImportOutlined />}
+            onClick={handleImport}
+          >
+            导入(ref)
+          </Button>
+          <Button
+            icon={<ExportOutlined />}
+            onClick={handleExport}
+          >
+            导出(ref)
+          </Button>
           <Upload 
             name="file"
             showUploadList={false}
@@ -168,6 +219,7 @@ export const Example = memo(() => {
       </Toolbar>
       
       <WorkflowEditor
+        ref={editorRef}
         themeMode={themeMode}
         lang={lang}
         materialUis={materialUis}
