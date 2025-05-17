@@ -4,7 +4,6 @@ import { ShellContainer } from "./ShellContainer"
 import { styled } from "styled-components"
 import { WorkflowEditor } from "./WorkflowEditor"
 import { WorkflowEditorRef } from "./WorkflowEditor/WorkFlowEditorInner"
-import { materialUis } from "./materialUis"
 import { syncThemeMode } from "./ThemeUtils"
 import { UploadOutlined, FileOutlined, CodeOutlined, SaveOutlined, ImportOutlined, ExportOutlined } from "@ant-design/icons"
 import { IFlowJson } from "../workflow-editor/hooks/useImport"
@@ -222,7 +221,6 @@ export const Example = memo(() => {
         ref={editorRef}
         themeMode={themeMode}
         lang={lang}
-        materialUis={materialUis}
         initialJson={initialJson}
         jsonString={jsonString}
       />

@@ -3,10 +3,11 @@ import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import terser from '@rollup/plugin-terser';
+import postcss from 'rollup-plugin-postcss';
 import pkg from './package.json';
 
 export default {
-  input: 'src/index.ts',
+  input: 'src/exports.ts',
   output: [
     {
       file: pkg.main,
@@ -23,6 +24,17 @@ export default {
     peerDepsExternal(),
     resolve(),
     commonjs(),
+    postcss({
+      extensions: ['.css'],
+      use: ['sass', 'less'],
+      minimize: true,
+      inject: true,
+      autoModules: true,
+      modules: false,
+      extract: false,
+      sourceMap: false,
+      namedExports: true
+    }),
     typescript({
       tsconfig: './tsconfig.lib.json',
       declaration: true,

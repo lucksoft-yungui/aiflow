@@ -1,10 +1,11 @@
-import { ContentPlaceholder, IMaterialUIs, IWorkFlowNode, NodeType } from "../workflow-editor";
-import { ApproverPanel, IApproverSettings } from "./setters/ApproverPanel";
-import { AuditPanel, IAuditSettings } from "./setters/AuditPanel";
-import { ConditionPanel, IConditionSettings } from "./setters/ConditionPanel";
-import { INotifierSettings, NotifierPanel } from "./setters/NotifierPanel";
-import { IStartSettings, StartPanel } from "./setters/StartPanel";
-import { IRuleSettings, RulePanel } from "./setters/RulePanel";
+import { ContentPlaceholder, IMaterialUIs, IWorkFlowNode, NodeType } from "../../workflow-editor";
+import { ApproverPanel, IApproverSettings } from "../setters/ApproverPanel";
+import { AuditPanel, IAuditSettings } from "../setters/AuditPanel";
+import { ConditionPanel, IConditionSettings } from "../setters/ConditionPanel";
+import { INotifierSettings, NotifierPanel } from "../setters/NotifierPanel";
+import { IStartSettings, StartPanel } from "../setters/StartPanel";
+import { IRuleSettings, RulePanel } from "../setters/RulePanel";
+
 export const materialUis: IMaterialUIs = {
   //审批人物料UI
   [NodeType.approver]: {
@@ -92,4 +93,4 @@ export const materialUis: IMaterialUIs = {
     },
     canOpenSettings: false
   },
-}
+} 

@@ -2,8 +2,9 @@ import { forwardRef } from "react"
 import { WorkFlowEditorInner, WorkflowEditorRef } from "./WorkFlowEditorInner"
 import { ILocales } from "@rxdrag/locales"
 import { IThemeToken } from "../../workflow-editor"
-import { IMaterialUIs, FlowEditorScope } from "../../workflow-editor/"
+import { FlowEditorScope } from "../../workflow-editor/"
 import { IFlowJson } from "../../workflow-editor/hooks/useImport"
+import { materialUis } from "./materialUis"
 
 /**
  * WorkflowEditor组件的属性定义
@@ -12,7 +13,6 @@ import { IFlowJson } from "../../workflow-editor/hooks/useImport"
  * @property {IThemeToken} [themeToken] - 主题令牌，用于自定义主题
  * @property {string} [lang] - 当前语言代码，例如 'zh-CN' 或 'en-US'
  * @property {ILocales} [locales] - 本地化资源
- * @property {IMaterialUIs} [materialUis] - 所有物料的UI配置
  * @property {IFlowJson|any} [initialJson] - 初始化编辑器的JSON对象
  * @property {string} [jsonString] - 初始化编辑器的JSON字符串，会被解析成对象
  */
@@ -21,7 +21,6 @@ export type WorkflowEditorProps = {
   themeToken?: IThemeToken,
   lang?: string,
   locales?: ILocales,
-  materialUis?: IMaterialUIs,
   initialJson?: IFlowJson | any,
   jsonString?: string,
 }
@@ -58,7 +57,10 @@ export type WorkflowEditorProps = {
  * @see {@link WorkflowEditorRef} 了解可用的接口方法
  */
 export const WorkflowEditor = forwardRef<WorkflowEditorRef, WorkflowEditorProps>((props, ref) => {
-  const { themeMode, themeToken, lang, locales, materialUis, initialJson, jsonString, ...other } = props;
+  const { themeMode, themeToken, lang, locales, initialJson, jsonString, ...other } = props;
+  
+  // 使用从文件导入的materialUis
+  
   return (
     <FlowEditorScope
       mode={themeMode}
