@@ -1,7 +1,16 @@
 {
-  "name": "lucksoft-aiflow",
+  "name": "@lucksoft/aiflow-editor",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "description": "审批流程编辑器组件",
+  "author": "Lucksoft",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@ant-design/icons": "^5.1.4",
     "@reduxjs/toolkit": "^1.9.5",
@@ -25,7 +34,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:lib": "rollup -c --bundleConfigAsCjs",
+    "prepublishOnly": "npm run build:lib"
   },
   "eslintConfig": {
     "extends": [
@@ -45,8 +56,21 @@
       "last 1 safari version"
     ]
   },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
+  },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@rollup/plugin-terser": "^0.4.0",
+    "rollup": "^3.20.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
     "@types/styled-components": "^5.1.26",
     "@types/uuid": "^9.0.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

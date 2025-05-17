@@ -36,16 +36,85 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+# AIFlow 审批流程编辑器
+
+一个功能完整的审批流程编辑器 React 组件。
+
+## 安装
+
+```bash
+npm install @yourname/aiflow-editor
+# 或者
+yarn add @yourname/aiflow-editor
+```
+
+## 使用方法
+
+```jsx
+import React, { useRef } from 'react';
+import { WorkflowEditor, WorkflowEditorRef } from '@yourname/aiflow-editor';
+
+function App() {
+  const editorRef = useRef(null);
+
+  const handleGetJson = () => {
+    if (editorRef.current) {
+      const json = editorRef.current.getDocumentJson();
+      console.log(json);
+    }
+  };
+
+  return (
+    <div style={{ height: '800px' }}>
+      <button onClick={handleGetJson}>获取流程JSON</button>
+      <WorkflowEditor 
+        ref={editorRef}
+        themeMode="light"
+        lang="zh-CN"
+      />
+    </div>
+  );
+}
+
+export default App;
+```
+
+## API
+
+### WorkflowEditor 属性
+
+| 属性 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| themeMode | 'dark' \| 'light' | 'light' | 主题模式 |
+| themeToken | IThemeToken | - | 主题令牌，用于自定义主题 |
+| lang | string | 'zh-CN' | 当前语言代码 |
+| locales | ILocales | - | 本地化资源 |
+| materialUis | IMaterialUIs | - | 所有物料的UI配置 |
+| initialJson | IFlowJson \| any | - | 初始化编辑器的JSON对象 |
+| jsonString | string | - | 初始化编辑器的JSON字符串 |
+
+### WorkflowEditorRef 方法
+
+| 方法 | 返回值 | 说明 |
+| --- | --- | --- |
+| getDocumentJson() | any | 获取当前文档的完整JSON结构 |
+| importJson() | void | 打开文件选择对话框，允许导入JSON文件 |
+| exportJson() | void | 将当前编辑器内容导出为JSON文件 |
+
+## 许可证
+
+MIT
