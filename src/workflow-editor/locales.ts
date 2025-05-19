@@ -89,6 +89,8 @@ export const defalutLocales: ILocales = {
     theWholeDocument: "整个文档",
     conditionBranch: "分支节点",
     ruleManagement: "规则管理",
+    reference: "参考文献",
+    pleaseSelectReference: "请选择参考文献",
   },
   'en-US': {
     baseSettings: "Base Settings",
@@ -178,5 +180,7 @@ export const defalutLocales: ILocales = {
     theWholeDocument: "The whole document",
     conditionBranch: "Condition Branch",
     ruleManagement: "Rule Management",
+    reference: "Reference",
+    pleaseSelectReference: "Please select reference",
   }
 }

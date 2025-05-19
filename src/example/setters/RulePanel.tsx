@@ -15,7 +15,8 @@ export interface IRuleSettings {
     rule: {
         decisionRules: string,
         question: string,
-        example: string
+        example: string,
+        reference: string
     },
     directory: string[]
 }
@@ -38,7 +39,8 @@ export const RulePanel = memo((
             rule: {
                 decisionRules: "",
                 question: "",
-                example: ""
+                example: "",
+                reference: ""
             },
             directory: []
         };
@@ -120,6 +122,13 @@ export const RulePanel = memo((
             rule: { ...prev.rule, example: e.target.value } 
         }));
     };
+
+    const handleReferenceChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        // console.log(`selected ${e.target.value}`);
+        updateConfig(prev => ({ 
+            rule: { ...prev.rule, reference: e.target.value } 
+        }));
+    };
     
     // 监听props.value变化，更新所有表单值，同时确保key和pretreatment不变
     useEffect(() => {
@@ -133,7 +142,8 @@ export const RulePanel = memo((
                 rule: {
                     decisionRules: "",
                     question: "",
-                    example: ""
+                    example: "",
+                    reference: ""
                 },
                 directory: []
             };
@@ -209,6 +219,14 @@ export const RulePanel = memo((
                     maxLength={6}
                     onChange={handleCorrectExampleChange}
                     value={config.rule.example}
+                />
+            </FormCard>
+            <FormCard title={t("reference")}>
+                <TextArea rows={4}
+                    placeholder={t("pleaseSelectReference")}
+                    maxLength={6}
+                    onChange={handleReferenceChange}
+                    value={config.rule.reference}
                 />
             </FormCard>
         </FormCardContent>
