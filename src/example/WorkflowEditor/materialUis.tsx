@@ -74,7 +74,7 @@ export const materialUis: IMaterialUIs = {
   //规则校验节点
   [NodeType.rule]: {
     viewContent: (node: IWorkFlowNode<IRuleSettings>, { t }) => {
-      return <ContentPlaceholder text={t("rule")} />
+      return <ContentPlaceholder text={node.agent?.title || t("rule")} />
     },
     settersPanel: RulePanel,
     canOpenSettings: true
