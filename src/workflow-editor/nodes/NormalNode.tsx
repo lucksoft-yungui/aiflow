@@ -72,12 +72,14 @@ export const NodeWrapBox = styled.div`
     transition: all .1s cubic-bezier(.645, .045, .355, 1);
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .1)
   }
-  .close {
+  .close, 
+  .icon-btn {
     display: none;
   }
   &:hover{
     outline: solid 1px ${props => props.theme.token?.colorPrimary};
-    .close {
+    .close, 
+    .icon-btn {
       display: inline-flex;
     }
   }
