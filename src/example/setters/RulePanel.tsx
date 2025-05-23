@@ -200,7 +200,6 @@ export const RulePanel = memo((
             <FormCard title={t("problemConfiguration")}>
                 <TextArea rows={4}
                     placeholder={t("pleaseSelectProblemConfiguration")}
-                    maxLength={6}
                     onChange={handleProblemConfigChange}
                     value={config.rule.question}
                 />
@@ -208,7 +207,6 @@ export const RulePanel = memo((
             <FormCard title={t("judgementRule")}>
                 <TextArea rows={4}
                     placeholder={t("pleaseSelectJudgementRule")}
-                    maxLength={6}
                     onChange={handleJudgementRuleChange}
                     value={config.rule.decisionRules}
                 />
@@ -216,7 +214,6 @@ export const RulePanel = memo((
             <FormCard title={t("correctExample")}>
                 <TextArea rows={4}
                     placeholder={t("pleaseSelectCorrectExample")}
-                    maxLength={6}
                     onChange={handleCorrectExampleChange}
                     value={config.rule.example}
                 />
@@ -224,7 +221,6 @@ export const RulePanel = memo((
             <FormCard title={t("reference")}>
                 <TextArea rows={4}
                     placeholder={t("pleaseSelectReference")}
-                    maxLength={6}
                     onChange={handleReferenceChange}
                     value={config.rule.reference}
                 />

@@ -157,6 +157,23 @@ export const Example = memo(() => {
     }
   }, []);
 
+  // 使用ref设置JSON数据
+  const handleSetJsonViaRef = useCallback(() => {
+    if (editorRef.current) {
+      if (jsonTextArea.trim()) {
+        const success = editorRef.current.setJson(jsonTextArea);
+        if (success) {
+          message.success('通过ref设置JSON数据成功');
+          setIsModalVisible(false);
+        }
+      } else {
+        message.warning('JSON字符串不能为空');
+      }
+    } else {
+      message.error('编辑器实例未准备好');
+    }
+  }, [jsonTextArea]);
+
   // 同步主题模式到 body 属性
   useEffect(() => {
     syncThemeMode(themeMode)
@@ -228,11 +245,19 @@ export const Example = memo(() => {
       <Modal
         title="JSON编辑器"
         open={isModalVisible}
-        onOk={handleApplyJsonString}
         onCancel={() => setIsModalVisible(false)}
         width={800}
-        okText="应用"
-        cancelText="取消"
+        footer={[
+          <Button key="cancel" onClick={() => setIsModalVisible(false)}>
+            取消
+          </Button>,
+          <Button key="apply" type="primary" onClick={handleApplyJsonString}>
+            应用(初始化)
+          </Button>,
+          <Button key="setViaRef" type="primary" onClick={handleSetJsonViaRef}>
+            设置(ref)
+          </Button>,
+        ]}
       >
         <TextArea
           value={jsonTextArea}

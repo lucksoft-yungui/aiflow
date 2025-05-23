@@ -1,8 +1,9 @@
 import { memo, useCallback, forwardRef, useImperativeHandle } from "react"
 import { styled } from "styled-components"
 import classNames from "classnames"
-import { FlowEditorCanvas, useImport } from "../../workflow-editor"
+import { FlowEditorCanvas, useImport, useSetJson } from "../../workflow-editor"
 import { useExport, useDocumentJson } from "../../workflow-editor"
+import { IFlowJson } from "../../workflow-editor/hooks/useImport"
 
 const Container = styled.div`
   flex:1;
@@ -16,7 +17,7 @@ const Container = styled.div`
 /**
  * WorkflowEditor对外暴露的接口定义
  * 
- * 提供了三个核心方法，用于获取文档结构、导入和导出JSON数据
+ * 提供了四个核心方法，用于获取文档结构、导入、导出和设置JSON数据
  */
 export interface WorkflowEditorRef {
   /**
@@ -56,6 +57,24 @@ export interface WorkflowEditorRef {
    * ```
    */
   exportJson: () => void;
+
+  /**
+   * 设置JSON数据
+   * 
+   * 直接通过JSON对象或字符串设置编辑器中的文档数据
+   * 
+   * @param {IFlowJson | string} jsonData - 要设置的JSON数据，可以是对象或字符串
+   * @returns {boolean} 返回设置是否成功
+   * @example
+   * ```ts
+   * // 使用JSON对象
+   * const success = editorRef.current.setJson({ startNode: myNode });
+   * 
+   * // 使用JSON字符串
+   * const success = editorRef.current.setJson('{"startNode": {...}}');
+   * ```
+   */
+  setJson: (jsonData: IFlowJson | string) => boolean;
 }
 
 /**
@@ -72,13 +91,15 @@ export const WorkFlowEditorInner = forwardRef<WorkflowEditorRef, {
   const exportJson = useExport()
   const importJson = useImport()
   const getDocumentJson = useDocumentJson()
+  const setJson = useSetJson()
 
   // 暴露接口给外部
   useImperativeHandle(ref, () => ({
     getDocumentJson,
     importJson,
-    exportJson
-  }), [getDocumentJson, importJson, exportJson]);
+    exportJson,
+    setJson
+  }), [getDocumentJson, importJson, exportJson, setJson]);
 
   return (
     <Container className={classNames("workflow-editor", className || "")} {...other}>

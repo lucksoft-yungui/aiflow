@@ -1,6 +1,7 @@
 export * from "./useEditorEngine"
 export * from "./useExport"
 export * from "./useImport"
+export * from "./useSetJson"
 export * from "./useSelectedNode"
 export * from "./useStartNode"
 export * from "./useDocumentJson"
