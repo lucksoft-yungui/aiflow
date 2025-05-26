@@ -7,6 +7,7 @@ import { WorkflowEditorRef } from "./WorkflowEditor/WorkFlowEditorInner"
 import { syncThemeMode } from "./ThemeUtils"
 import { UploadOutlined, FileOutlined, CodeOutlined, SaveOutlined, ImportOutlined, ExportOutlined } from "@ant-design/icons"
 import { IFlowJson } from "../workflow-editor/hooks/useImport"
+import { IWorkFlowNode } from "../workflow-editor/interfaces"
 import { sampleFlowJson } from "./sampleData"
 
 const { TextArea } = Input;
@@ -174,6 +175,12 @@ export const Example = memo(() => {
     }
   }, [jsonTextArea]);
 
+  // 节点调试回调函数
+  const handleNodeDebug = useCallback((node: IWorkFlowNode) => {
+    console.log('调试节点信息:', node);
+    alert(`调试节点: ${node.name || '未命名节点'}\nID: ${node.id}\n类型: ${node.nodeType}`);
+  }, []);
+
   // 同步主题模式到 body 属性
   useEffect(() => {
     syncThemeMode(themeMode)
@@ -240,6 +247,7 @@ export const Example = memo(() => {
         lang={lang}
         initialJson={initialJson}
         jsonString={jsonString}
+        onNodeDedug={handleNodeDebug}
       />
 
       <Modal

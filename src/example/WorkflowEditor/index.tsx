@@ -4,6 +4,7 @@ import { ILocales } from "@rxdrag/locales"
 import { IThemeToken } from "../../workflow-editor"
 import { FlowEditorScope } from "../../workflow-editor/"
 import { IFlowJson } from "../../workflow-editor/hooks/useImport"
+import { IWorkFlowNode } from "../../workflow-editor/interfaces"
 import { materialUis } from "./materialUis"
 
 /**
@@ -23,7 +24,7 @@ export type WorkflowEditorProps = {
   locales?: ILocales,
   initialJson?: IFlowJson | any,
   jsonString?: string,
-  onNodeDedug?: (node: any) => void,
+  onNodeDedug?: (node: IWorkFlowNode) => void,
 }
 
 /**

@@ -5,6 +5,7 @@ import { ILocales, LocalesManager } from "@rxdrag/locales"
 import { LocalesContext } from "../../react-locales"
 import { defalutLocales } from "../../locales"
 import { IMaterialUIs, INodeMaterial } from "../../interfaces/material"
+import { IWorkFlowNode } from "../../interfaces"
 import { FlowEditorScopeInner } from "./FlowEditorScopeInner"
 import { IFlowJson } from "../../hooks/useImport"
 
@@ -27,7 +28,7 @@ export const FlowEditorScope = memo((props: {
   //JSON字符串
   jsonString?: string,
   //节点调试
-  onNodeDedug?: (node: any) => void,
+  onNodeDedug?: (node: IWorkFlowNode) => void,
 }) => {
   const { children, lang, locales, ...other } = props
   const [localesManager, setLocalesManager] = useState(new LocalesManager(lang, defalutLocales))
@@ -44,7 +45,7 @@ export const FlowEditorScope = memo((props: {
   return (
     <LocalesContext.Provider value={localesManager}>
       <ConfigRoot themeMode={other.mode}>
-        <FlowEditorScopeInner {...other}>
+        <FlowEditorScopeInner {...other} onNodeDedug={props.onNodeDedug}>
           {children}
         </FlowEditorScopeInner>
       </ConfigRoot>

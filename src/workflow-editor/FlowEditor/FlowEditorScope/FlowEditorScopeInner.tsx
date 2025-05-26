@@ -3,7 +3,7 @@ import { memo, useMemo, useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { EditorEngine } from "../../classes";
 import { WorkflowEditorStoreContext } from "../../contexts";
-import { INodeMaterial, IMaterialUIs } from "../../interfaces";
+import { INodeMaterial, IMaterialUIs, IWorkFlowNode } from "../../interfaces";
 import { useTranslate } from "../../react-locales";
 import { IThemeToken } from "../../theme";
 import { defaultMaterials } from "../defaultMaterials";
@@ -18,8 +18,9 @@ export const FlowEditorScopeInner = memo((props: {
   materialUis?: IMaterialUIs,
   initialJson?: IFlowJson | any, // 允许任何结构的数据
   jsonString?: string, // JSON字符串
+  onNodeDedug?: (node: IWorkFlowNode) => void,
 }) => {
-  const { mode, children, themeToken, materials, materialUis, initialJson, jsonString } = props;
+  const { mode, children, themeToken, materials, materialUis, initialJson, jsonString, onNodeDedug } = props;
   const [, token] = useToken();
   const t = useTranslate();
   const [parsedJson, setParsedJson] = useState<any>(null);
@@ -57,6 +58,10 @@ export const FlowEditorScopeInner = memo((props: {
   useEffect(() => {
     store.t = t
   }, [store, t])
+
+  useEffect(() => {
+    store.onNodeDedug = onNodeDedug
+  }, [store, onNodeDedug])
 
   // 初始化文档JSON (对象或通过字符串解析的对象)
   useEffect(() => {

@@ -200,8 +200,13 @@ export const NodeTitle = memo((props: {
     editorStore?.removeNode(node.id);
   }, [editorStore, node.id]);
 
-  const handleNodeDebug = useCallback(() => {
-    console.log('node', node);
+  const handleNodeDebug = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (editorStore?.onNodeDedug) {
+      editorStore.onNodeDedug(node);
+    } else {
+      console.log('node', node);
+    }
   }, [editorStore, node]);
 
   return <NodeTitleShell className="node-title" style={{ backgroundColor: material?.color, color: "#fff" }}>

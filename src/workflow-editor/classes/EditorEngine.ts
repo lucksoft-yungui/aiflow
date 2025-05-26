@@ -14,6 +14,7 @@ export class EditorEngine {
   t: Translate = (msg: string) => msg
   materials: INodeMaterial[] = []
   materialUis: IMaterialUIs = {}
+  onNodeDedug?: (node: IWorkFlowNode) => void
   constructor(debugMode?: boolean,) {
     this.store = makeStoreInstance(debugMode || false)
     
