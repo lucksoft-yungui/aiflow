@@ -23,6 +23,7 @@ export type WorkflowEditorProps = {
   locales?: ILocales,
   initialJson?: IFlowJson | any,
   jsonString?: string,
+  onNodeDedug?: (node: any) => void,
 }
 
 /**
@@ -57,7 +58,7 @@ export type WorkflowEditorProps = {
  * @see {@link WorkflowEditorRef} 了解可用的接口方法
  */
 export const WorkflowEditor = forwardRef<WorkflowEditorRef, WorkflowEditorProps>((props, ref) => {
-  const { themeMode, themeToken, lang, locales, initialJson, jsonString, ...other } = props;
+  const { themeMode, themeToken, lang, locales, initialJson, jsonString, onNodeDedug, ...other } = props;
   
   // 使用从文件导入的materialUis
   
@@ -70,6 +71,7 @@ export const WorkflowEditor = forwardRef<WorkflowEditorRef, WorkflowEditorProps>
       materialUis={materialUis}
       initialJson={initialJson}
       jsonString={jsonString}
+      onNodeDedug={onNodeDedug}
     >
       <WorkFlowEditorInner ref={ref} {...other} />
     </FlowEditorScope>

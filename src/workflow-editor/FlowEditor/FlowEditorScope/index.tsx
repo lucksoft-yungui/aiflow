@@ -26,6 +26,8 @@ export const FlowEditorScope = memo((props: {
   initialJson?: IFlowJson | any, // 允许任何结构的数据
   //JSON字符串
   jsonString?: string,
+  //节点调试
+  onNodeDedug?: (node: any) => void,
 }) => {
   const { children, lang, locales, ...other } = props
   const [localesManager, setLocalesManager] = useState(new LocalesManager(lang, defalutLocales))

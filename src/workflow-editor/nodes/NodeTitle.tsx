@@ -1,11 +1,10 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { IWorkFlowNode } from "../interfaces";
-import { CloseButton } from "./CloseButton";
 import { INodeMaterial } from "../interfaces/material";
 import { useEditorEngine } from "../hooks";
 import { Button, message } from "antd";
-import { copyIcon } from "../icons";
+import { copyIcon, debugIcon } from "../icons";
 import { createUuid } from "../utils/create-uuid";
 import { CloseOutlined } from "@ant-design/icons";
 
@@ -69,7 +68,7 @@ const ButtonsContainer = styled.div`
   top: 50%;
   transform: translateY(-50%);
   display: flex;
-  gap: 4px;
+  gap: 2px;
 `
 
 const IconButton = styled(Button)`
@@ -176,7 +175,7 @@ export const NodeTitle = memo((props: {
         try {
           // 解析剪贴板内容
           const pastedNode = JSON.parse(clipboardContent);
-          
+
           // 保留当前节点ID、名称和子节点，但采用复制的节点的其他属性
           const mergedNode = {
             ...pastedNode,            // 复制节点的属性
@@ -184,10 +183,10 @@ export const NodeTitle = memo((props: {
             name: node.name,          // 保留当前节点名称
             childNode: node.childNode // 保留当前节点的子节点
           };
-          
+
           // 直接替换当前节点结构
           editorStore.changeNode(mergedNode);
-          
+
           message.success('节点属性已应用');
         } catch (error) {
           console.error('粘贴节点失败:', error);
@@ -201,6 +200,10 @@ export const NodeTitle = memo((props: {
     editorStore?.removeNode(node.id);
   }, [editorStore, node.id]);
 
+  const handleNodeDebug = useCallback(() => {
+    console.log('node', node);
+  }, [editorStore, node]);
+
   return <NodeTitleShell className="node-title" style={{ backgroundColor: material?.color, color: "#fff" }}>
     <NodeIcon>
       {material?.icon}
@@ -211,6 +214,16 @@ export const NodeTitle = memo((props: {
           <NodeTitleText className="text" >{node.name}</NodeTitleText>
         </TitleResponse>
         <ButtonsContainer>
+          <IconButton
+            className="icon-btn copy-btn"
+            type="text"
+            size="small"
+            shape="circle"
+            icon={debugIcon}
+            onClick={handleNodeDebug}
+            title="调试"
+            style={{ color: "#fff" }}
+          />
           <IconButton
             className="icon-btn copy-btn"
             type="text"
