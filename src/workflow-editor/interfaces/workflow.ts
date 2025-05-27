@@ -38,6 +38,7 @@ export interface IWorkFlowNode<Config = unknown>{
     title: string,
     pretreatment: string,
     level: string,
+    thinking: boolean,
     rule: {
       decisionRules: string,
       question: string,

@@ -1,7 +1,7 @@
 import { memo, useState, useEffect } from "react"
 import { useTranslate } from "../../workflow-editor/react-locales"
 import { FormCard, FormCardContent } from "./FormCard"
-import { Select } from 'antd';
+import { Select, Checkbox } from 'antd';
 import type { SelectProps } from 'antd';
 import { Input } from 'antd';
 
@@ -12,6 +12,7 @@ export interface IRuleSettings {
     title: string,
     pretreatment: boolean,
     level: string,
+    thinking: boolean,
     rule: {
         decisionRules: string,
         question: string,
@@ -36,6 +37,7 @@ export const RulePanel = memo((
             title: "",
             pretreatment: false,
             level: "",
+            thinking: false,
             rule: {
                 decisionRules: "",
                 question: "",
@@ -60,7 +62,9 @@ export const RulePanel = memo((
                 directory: Array.isArray(props.value?.directory) ? [...(props.value?.directory as string[])] : [],
                 // 确保key和pretreatment不变
                 key: props.value?.key || "",
-                pretreatment: props.value?.pretreatment !== undefined ? props.value?.pretreatment : false
+                pretreatment: props.value?.pretreatment !== undefined ? props.value?.pretreatment : false,
+                // 确保thinking是boolean类型
+                thinking: props.value?.thinking !== undefined ? props.value?.thinking : false
             };
         }
         
@@ -163,7 +167,9 @@ export const RulePanel = memo((
                     directory: Array.isArray(props.value?.directory) ? [...(props.value?.directory as string[])] : [],
                     // 确保key和pretreatment不变
                     key: props.value?.key || "",
-                    pretreatment: props.value?.pretreatment !== undefined ? props.value?.pretreatment : false
+                    pretreatment: props.value?.pretreatment !== undefined ? props.value?.pretreatment : false,
+                    // 确保thinking是boolean类型
+                    thinking: props.value?.thinking !== undefined ? props.value?.thinking : false
                 };
                 
                 console.log("更新后的config:", updated);
@@ -171,6 +177,10 @@ export const RulePanel = memo((
             });
         }
     }, [props.value]);
+
+    const handleThinkingChange = (checked: boolean) => {
+        updateConfig(prev => ({ thinking: checked }));
+    };
 
     return (
         <FormCardContent>
@@ -224,6 +234,14 @@ export const RulePanel = memo((
                     onChange={handleReferenceChange}
                     value={config.rule.reference}
                 />
+            </FormCard>
+            <FormCard title={t("thinking")}>
+                <Checkbox
+                    checked={config.thinking}
+                    onChange={(e) => handleThinkingChange(e.target.checked)}
+                >
+                    {t("enableThinking")}
+                </Checkbox>
             </FormCard>
         </FormCardContent>
     )

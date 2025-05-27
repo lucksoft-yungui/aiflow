@@ -91,6 +91,8 @@ export const defalutLocales: ILocales = {
     ruleManagement: "规则管理",
     reference: "参考文献",
     pleaseSelectReference: "请选择参考文献",
+    thinking: "深度思考",
+    enableThinking: "启用深度思考",
   },
   'en-US': {
     baseSettings: "Base Settings",
@@ -182,5 +184,7 @@ export const defalutLocales: ILocales = {
     ruleManagement: "Rule Management",
     reference: "Reference",
     pleaseSelectReference: "Please select reference",
+    thinking: "Deep Thinking",
+    enableThinking: "Enable Deep Thinking",
   }
 }
