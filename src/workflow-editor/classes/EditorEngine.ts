@@ -304,6 +304,42 @@ export class EditorEngine {
     this.store.dispatch(selectAction)
   }
 
+  searchNodeByAgentTitle(searchValue: string): boolean {
+    const foundNode = this.findNodeByAgentTitle(this.store.getState().startNode, searchValue)
+    if (foundNode) {
+      this.selectNode(foundNode.id)
+      return true
+    }
+    return false
+  }
+
+  private findNodeByAgentTitle(node: IWorkFlowNode, searchValue: string): IWorkFlowNode | undefined {
+    // 检查当前节点
+    if (node.agent && node.agent.title && node.agent.title === searchValue) {
+      return node
+    }
+
+    // 递归检查子节点
+    if (node.childNode) {
+      const foundInChild = this.findNodeByAgentTitle(node.childNode, searchValue)
+      if (foundInChild) {
+        return foundInChild
+      }
+    }
+
+    // 如果是路由节点，检查所有条件分支
+    if (node.nodeType === NodeType.route) {
+      for (const condition of (node as IRouteNode).conditionNodeList) {
+        const foundInCondition = this.findNodeByAgentTitle(condition, searchValue)
+        if (foundInCondition) {
+          return foundInCondition
+        }
+      }
+    }
+
+    return undefined
+  }
+
   removeNode(id?: string) {
     if (id) {
       this.backup()

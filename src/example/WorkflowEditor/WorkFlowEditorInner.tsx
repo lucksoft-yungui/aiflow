@@ -1,7 +1,7 @@
-import { memo, useCallback, forwardRef, useImperativeHandle } from "react"
+import { forwardRef, useImperativeHandle } from "react"
 import { styled } from "styled-components"
 import classNames from "classnames"
-import { FlowEditorCanvas, useImport, useSetJson } from "../../workflow-editor"
+import { FlowEditorCanvas, useImport, useSetJson, useSearchNode } from "../../workflow-editor"
 import { useExport, useDocumentJson } from "../../workflow-editor"
 import { IFlowJson } from "../../workflow-editor/hooks/useImport"
 
@@ -17,7 +17,7 @@ const Container = styled.div`
 /**
  * WorkflowEditor对外暴露的接口定义
  * 
- * 提供了四个核心方法，用于获取文档结构、导入、导出和设置JSON数据
+ * 提供了五个核心方法，用于获取文档结构、导入、导出、设置JSON数据和搜索节点
  */
 export interface WorkflowEditorRef {
   /**
@@ -76,6 +76,25 @@ export interface WorkflowEditorRef {
    * ```
    */
   setJson: (jsonData: IFlowJson | string, saveToHistory?: boolean) => boolean;
+
+  /**
+   * 根据agent.title搜索节点并选中
+   * 
+   * 遍历所有节点，找到agent.title匹配搜索值的节点并选中
+   * 
+   * @param {string} searchValue - 要搜索的agent.title值
+   * @returns {boolean} 返回是否找到并选中了节点
+   * @example
+   * ```ts
+   * const found = editorRef.current.searchNodeByAgentTitle("文档提取");
+   * if (found) {
+   *   console.log('找到并选中了节点');
+   * } else {
+   *   console.log('没有找到匹配的节点');
+   * }
+   * ```
+   */
+  searchNodeByAgentTitle: (searchValue: string) => boolean;
 }
 
 /**
@@ -93,14 +112,16 @@ export const WorkFlowEditorInner = forwardRef<WorkflowEditorRef, {
   const importJson = useImport()
   const getDocumentJson = useDocumentJson()
   const setJson = useSetJson()
+  const searchNodeByAgentTitle = useSearchNode()
 
   // 暴露接口给外部
   useImperativeHandle(ref, () => ({
     getDocumentJson,
     importJson,
     exportJson,
-    setJson
-  }), [getDocumentJson, importJson, exportJson, setJson]);
+    setJson,
+    searchNodeByAgentTitle
+  }), [getDocumentJson, importJson, exportJson, setJson, searchNodeByAgentTitle]);
 
   return (
     <Container className={classNames("workflow-editor", className || "")} {...other}>

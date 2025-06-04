@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { WorkflowEditor } from '@lucksoft/aiflow-editor'
 import { Button, Space, message, Upload, Input, Modal } from 'antd'
-import { UploadOutlined, FileOutlined, CodeOutlined, SaveOutlined, ImportOutlined, ExportOutlined } from '@ant-design/icons'
+import { UploadOutlined, FileOutlined, CodeOutlined, SaveOutlined, ImportOutlined, ExportOutlined, SearchOutlined } from '@ant-design/icons'
 import './App.css'
 
 // 示例数据
@@ -20,7 +20,46 @@ const sampleFlowJson = {
       },
       directory: []
     },
-    id: "start"
+    id: "start",
+    childNode: {
+      nodeType: "rule",
+      agent: {
+        key: "SemanticAnalysisAgent",
+        title: "语义分析",
+        pretreatment: false,
+        level: "规则分类",
+        rule: {
+          decisionRules: "",
+          question: "",
+          example: ""
+        },
+        directory: []
+      },
+      id: "814f677a-8b8d-48e0-9ac6-1a01f758d00d",
+      name: "规则校验",
+      childNode: {
+        nodeType: "spellCheck",
+        agent: {
+          key: "SpellCheckAgent",
+          title: "拼写检查",
+          pretreatment: false,
+          level: "文档基础校验"
+        },
+        id: "d879d6b7-4eb2-407b-a28a-6cf7ea8d6f08",
+        name: "错别字检查",
+        childNode: {
+          nodeType: "generateComment",
+          agent: {
+            key: "CommentAgent",
+            title: "批注生成",
+            pretreatment: false,
+            level: "校验结果处理"
+          },
+          id: "abda31dc-9cf7-4888-9d33-b4dd40758cd0",
+          name: "生成批注"
+        }
+      }
+    }
   }
 };
 
@@ -33,6 +72,7 @@ function App() {
   const [jsonString, setJsonString] = useState(undefined);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [jsonTextArea, setJsonTextArea] = useState("");
+  const [searchValue, setSearchValue] = useState("");
 
   // 同步主题模式
   useEffect(() => {
@@ -47,6 +87,45 @@ function App() {
   // 切换语言
   const handleSwitchLang = useCallback(() => {
     setLang(lang => lang === "zh-CN" ? "en-US" : "zh-CN");
+  }, []);
+
+  // 搜索节点功能
+  const handleSearchNode = useCallback(() => {
+    if (!searchValue.trim()) {
+      message.warning('请输入搜索内容');
+      return;
+    }
+    
+    if (editorRef.current) {
+      const found = editorRef.current.searchNodeByAgentTitle(searchValue.trim());
+      if (found) {
+        message.success(`找到并选中了节点: ${searchValue}`);
+      } else {
+        message.warning(`未找到匹配的节点: ${searchValue}`);
+      }
+    } else {
+      message.error('编辑器实例未准备好');
+    }
+  }, [searchValue]);
+
+  // 处理搜索输入框回车
+  const handleSearchKeyDown = useCallback((e) => {
+    if (e.key === 'Enter') {
+      handleSearchNode();
+    }
+  }, [handleSearchNode]);
+
+  // 快速搜索预设值
+  const handleQuickSearch = useCallback((title) => {
+    setSearchValue(title);
+    if (editorRef.current) {
+      const found = editorRef.current.searchNodeByAgentTitle(title);
+      if (found) {
+        message.success(`找到并选中了节点: ${title}`);
+      } else {
+        message.warning(`未找到匹配的节点: ${title}`);
+      }
+    }
   }, []);
 
   // 获取当前流程图数据
@@ -200,6 +279,34 @@ function App() {
     <div className="shell-container">
       <div className="toolbar">
         <span>WorkflowEditor 测试 (React 18.3.1)</span>
+        <div style={{ display: 'flex', alignItems: 'center', flex: 1, justifyContent: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginRight: '16px' }}>
+            <Input
+              placeholder="输入agent.title搜索节点"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              onKeyDown={handleSearchKeyDown}
+              style={{ width: 200 }}
+              allowClear
+            />
+            <Button 
+              icon={<SearchOutlined />} 
+              onClick={handleSearchNode}
+              type="primary"
+            >
+              搜索
+            </Button>
+            <Button size="small" onClick={() => handleQuickSearch('文档提取')}>
+              文档提取
+            </Button>
+            <Button size="small" onClick={() => handleQuickSearch('语义分析')}>
+              语义分析
+            </Button>
+            <Button size="small" onClick={() => handleQuickSearch('拼写检查')}>
+              拼写检查
+            </Button>
+          </div>
+        </div>
         <Space>
           <Button 
             icon={<FileOutlined />} 

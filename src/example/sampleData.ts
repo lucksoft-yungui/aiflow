@@ -4,6 +4,7 @@ export const sampleFlowJson = {
       "nodeType": "start",
       "agent": {
         "key": "ExtractDocumentAgent",
+        "title": "文档提取",
         "pretreatment": true,
         "level": "文档结构分析"
       },
@@ -12,7 +13,7 @@ export const sampleFlowJson = {
         "nodeType": "rule",
         "agent": {
           "key": "SemanticAnalysisAgent",
-          "title": "规则名称",
+          "title": "语义分析",
           "pretreatment": false,
           "level": "规则分类",
           "rule": {
@@ -36,7 +37,7 @@ export const sampleFlowJson = {
                 "nodeType": "rule",
                 "agent": {
                   "key": "SemanticAnalysisAgent",
-                  "title": "并行1",
+                  "title": "并行处理1",
                   "pretreatment": false,
                   "level": "",
                   "rule": {
@@ -58,7 +59,7 @@ export const sampleFlowJson = {
                 "nodeType": "rule",
                 "agent": {
                   "key": "SemanticAnalysisAgent",
-                  "title": "并行2",
+                  "title": "并行处理2",
                   "pretreatment": false,
                   "level": "",
                   "rule": {
@@ -78,6 +79,7 @@ export const sampleFlowJson = {
             "nodeType": "spellCheck",
             "agent": {
               "key": "SpellCheckAgent",
+              "title": "拼写检查",
               "pretreatment": false,
               "level": "文档基础校验"
             },
@@ -87,6 +89,7 @@ export const sampleFlowJson = {
               "nodeType": "generateComment",
               "agent": {
                 "key": "CommentAgent",
+                "title": "批注生成",
                 "pretreatment": false,
                 "level": "校验结果处理"
               },

@@ -5,7 +5,7 @@ import { styled } from "styled-components"
 import { WorkflowEditor } from "./WorkflowEditor"
 import { WorkflowEditorRef } from "./WorkflowEditor/WorkFlowEditorInner"
 import { syncThemeMode } from "./ThemeUtils"
-import { UploadOutlined, FileOutlined, CodeOutlined, SaveOutlined, ImportOutlined, ExportOutlined } from "@ant-design/icons"
+import { UploadOutlined, FileOutlined, CodeOutlined, SaveOutlined, ImportOutlined, ExportOutlined, SearchOutlined } from "@ant-design/icons"
 import { IFlowJson } from "../workflow-editor/hooks/useImport"
 import { IWorkFlowNode } from "../workflow-editor/interfaces"
 import { sampleFlowJson } from "./sampleData"
@@ -22,6 +22,13 @@ const Toolbar = styled.div`
   box-sizing: border-box;
 `
 
+const SearchContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 16px;
+`
+
 export enum Lang {
   cn = "zh-CN",
   en = "en-US"
@@ -34,6 +41,7 @@ export const Example = memo(() => {
   const [jsonString, setJsonString] = useState<string | undefined>()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [jsonTextArea, setJsonTextArea] = useState("")
+  const [searchValue, setSearchValue] = useState("")
   const editorRef = useRef<WorkflowEditorRef>(null)
 
   const handleToggleTheme = useCallback(() => {
@@ -43,6 +51,45 @@ export const Example = memo(() => {
   const handleSwitchLang = useCallback(() => {
     setlang(lang => lang === Lang.cn ? Lang.en : Lang.cn)
   }, [])
+
+  // 搜索节点功能
+  const handleSearchNode = useCallback(() => {
+    if (!searchValue.trim()) {
+      message.warning('请输入搜索内容');
+      return;
+    }
+    
+    if (editorRef.current) {
+      const found = editorRef.current.searchNodeByAgentTitle(searchValue.trim());
+      if (found) {
+        message.success(`找到并选中了节点: ${searchValue}`);
+      } else {
+        message.warning(`未找到匹配的节点: ${searchValue}`);
+      }
+    } else {
+      message.error('编辑器实例未准备好');
+    }
+  }, [searchValue]);
+
+  // 处理搜索输入框回车
+  const handleSearchKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearchNode();
+    }
+  }, [handleSearchNode]);
+
+  // 快速搜索预设值
+  const handleQuickSearch = useCallback((title: string) => {
+    setSearchValue(title);
+    if (editorRef.current) {
+      const found = editorRef.current.searchNodeByAgentTitle(title);
+      if (found) {
+        message.success(`找到并选中了节点: ${title}`);
+      } else {
+        message.warning(`未找到匹配的节点: ${title}`);
+      }
+    }
+  }, []);
 
   // 加载示例数据
   const handleLoadSample = useCallback(() => {
@@ -209,6 +256,34 @@ export const Example = memo(() => {
         <span>
           审批流演示
         </span>
+        <div style={{ display: 'flex', alignItems: 'center', flex: 1, justifyContent: 'center' }}>
+          <SearchContainer>
+            <Input
+              placeholder="输入agent.title搜索节点"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              onKeyDown={handleSearchKeyDown}
+              style={{ width: 200 }}
+              allowClear
+            />
+            <Button 
+              icon={<SearchOutlined />} 
+              onClick={handleSearchNode}
+              type="primary"
+            >
+              搜索
+            </Button>
+            <Button size="small" onClick={() => handleQuickSearch('文档提取')}>
+              文档提取
+            </Button>
+            <Button size="small" onClick={() => handleQuickSearch('语义分析')}>
+              语义分析
+            </Button>
+            <Button size="small" onClick={() => handleQuickSearch('拼写检查')}>
+              拼写检查
+            </Button>
+          </SearchContainer>
+        </div>
         <Space>
           <Button 
             icon={<FileOutlined />} 
