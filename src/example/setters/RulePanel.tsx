@@ -19,7 +19,8 @@ export interface IRuleSettings {
         example: string,
         reference: string
     },
-    directory: string[]
+    directory: string[],
+    enabled: boolean
 }
 
 export const RulePanel = memo((
@@ -44,7 +45,8 @@ export const RulePanel = memo((
                 example: "",
                 reference: ""
             },
-            directory: []
+            directory: [],
+            enabled: true
         };
         
         // 如果有props.value，使用props.value的内容作为基础
@@ -143,13 +145,15 @@ export const RulePanel = memo((
                 title: "",
                 pretreatment: false,
                 level: "",
+                thinking: false,
                 rule: {
                     decisionRules: "",
                     question: "",
                     example: "",
                     reference: ""
                 },
-                directory: []
+                directory: [],
+                enabled: true
             };
             
             // 更新配置，确保所有字段都正确更新
@@ -180,6 +184,10 @@ export const RulePanel = memo((
 
     const handleThinkingChange = (checked: boolean) => {
         updateConfig(prev => ({ thinking: checked }));
+    };
+
+    const handleEnabledChange = (checked: boolean) => {
+        updateConfig(prev => ({ enabled: checked }));
     };
 
     return (
@@ -241,6 +249,14 @@ export const RulePanel = memo((
                     onChange={(e) => handleThinkingChange(e.target.checked)}
                 >
                     {t("enableThinking")}
+                </Checkbox>
+            </FormCard>
+            <FormCard title={t("enabled")}>
+                <Checkbox
+                    checked={config.enabled}
+                    onChange={(e) => handleEnabledChange(e.target.checked)}
+                >
+                    {t("enableEnabled")}
                 </Checkbox>
             </FormCard>
         </FormCardContent>

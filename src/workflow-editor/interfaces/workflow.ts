@@ -44,7 +44,8 @@ export interface IWorkFlowNode<Config = unknown>{
       question: string,
       example: string
     },
-    directory: string[]
+    directory: string[],
+    enabled: boolean
   }
 }
 

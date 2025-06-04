@@ -8,7 +8,7 @@ import { copyIcon, debugIcon } from "../icons";
 import { createUuid } from "../utils/create-uuid";
 import { CloseOutlined } from "@ant-design/icons";
 
-export const NodeTitleShell = styled.div`
+export const NodeTitleShell = styled.div<{ $disabled?: boolean }>`
   position: relative;
   display: flex;
   align-items: center;
@@ -23,6 +23,23 @@ export const NodeTitleShell = styled.div`
   //background: #576a95;
   border-radius: 4px 4px 0 0;
   user-select: none;
+  
+  ${props => props.$disabled && `
+    opacity: 0.5;
+    filter: grayscale(70%);
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 4px 4px 0 0;
+    }
+  `}
+  
   &.start-node-title{
     //background: rgb(87, 106, 149);
   }
@@ -115,6 +132,9 @@ export const NodeTitle = memo((props: {
   const [canPaste, setCanPaste] = useState(false)
 
   const editorStore = useEditorEngine()
+  
+  // 检查agent是否被禁用
+  const isAgentDisabled = node.agent?.enabled === false
 
   useEffect(() => {
     setInputValue(node.name)
@@ -209,7 +229,11 @@ export const NodeTitle = memo((props: {
     }
   }, [editorStore, node]);
 
-  return <NodeTitleShell className="node-title" style={{ backgroundColor: material?.color, color: "#fff" }}>
+  return <NodeTitleShell 
+    className="node-title" 
+    style={{ backgroundColor: material?.color, color: "#fff" }}
+    $disabled={isAgentDisabled}
+  >
     <NodeIcon>
       {material?.icon}
     </NodeIcon>
@@ -228,6 +252,7 @@ export const NodeTitle = memo((props: {
             onClick={handleNodeDebug}
             title="调试"
             style={{ color: "#fff" }}
+            disabled={isAgentDisabled}
           />
           <IconButton
             className="icon-btn copy-btn"
@@ -238,6 +263,7 @@ export const NodeTitle = memo((props: {
             onClick={handleCopyNode}
             title="复制节点"
             style={{ color: "#fff" }}
+            disabled={isAgentDisabled}
           />
           {canPaste && (
             <IconButton
@@ -249,6 +275,7 @@ export const NodeTitle = memo((props: {
               onClick={handlePasteNode}
               title="粘贴节点"
               style={{ color: "#fff" }}
+              disabled={isAgentDisabled}
             />
           )}
           <IconButton
@@ -258,6 +285,7 @@ export const NodeTitle = memo((props: {
             shape="circle"
             icon={<CloseOutlined style={{ color: "#fff", fontSize: 12 }} />}
             onClick={handleClose}
+            disabled={isAgentDisabled}
           />
         </ButtonsContainer>
       </>
@@ -270,6 +298,7 @@ export const NodeTitle = memo((props: {
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
         onChange={handleChange}
+        disabled={isAgentDisabled}
       />
     }
   </NodeTitleShell>
