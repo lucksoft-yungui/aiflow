@@ -32,7 +32,7 @@ export class EditorEngine {
         ...JSON.parse(JSON.stringify(startMaterial.defaultConfig)), 
         id: startNode.id 
       }
-      this.setStartNode(updatedStartNode)
+      this.setStartNodeWithHistory(updatedStartNode, false)
     }
   }
 
@@ -194,7 +194,24 @@ export class EditorEngine {
   }
 
   setStartNode(node: IWorkFlowNode) {
+    console.log("setStartNode", node)
     this.backup()
+    const setStartNodeAction: SetStartNodeAction = {
+      type: ActionType.SET_START_NODE,
+      payload: {
+        node
+      }
+    }
+
+    this.dispatch(setStartNodeAction)
+    this.revalidate()
+  }
+
+  setStartNodeWithHistory(node: IWorkFlowNode, saveToHistory: boolean = true) {
+    console.log("setStartNodeWithHistory", node, saveToHistory)
+    if (saveToHistory) {
+      this.backup()
+    }
     const setStartNodeAction: SetStartNodeAction = {
       type: ActionType.SET_START_NODE,
       payload: {

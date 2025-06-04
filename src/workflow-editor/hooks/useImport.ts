@@ -20,7 +20,7 @@ export function useImport() {
           try {
             const flowJson: IFlowJson = JSON.parse(fileData);
             if (flowJson.startNode) {
-              edtorStore?.setStartNode(flowJson.startNode)
+              edtorStore?.setStartNodeWithHistory(flowJson.startNode, false)
             } else {
               message.error(t("fileIllegal"));
             }

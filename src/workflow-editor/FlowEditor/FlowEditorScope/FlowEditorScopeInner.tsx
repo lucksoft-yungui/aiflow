@@ -69,7 +69,7 @@ export const FlowEditorScopeInner = memo((props: {
     
     if (jsonToUse?.startNode) {
       try {
-        store.setStartNode(jsonToUse.startNode);
+        store.setStartNodeWithHistory(jsonToUse.startNode, false);
         console.log("Editor initialized with document:", jsonToUse);
       } catch (error) {
         console.error("Failed to initialize editor with document:", error);

@@ -9,7 +9,7 @@ export function useSetJson() {
   const editorStore = useEditorEngine()
   const t = useTranslate()
 
-  const setJson = useCallback((jsonData: IFlowJson | string) => {
+  const setJson = useCallback((jsonData: IFlowJson | string, saveToHistory: boolean = true) => {
     try {
       let flowJson: IFlowJson;
       
@@ -22,7 +22,7 @@ export function useSetJson() {
       
       // 验证JSON结构
       if (flowJson.startNode) {
-        editorStore?.setStartNode(flowJson.startNode)
+        editorStore?.setStartNodeWithHistory(flowJson.startNode, saveToHistory)
         return true;
       } else {
         message.error(t("fileIllegal") || "Invalid JSON structure");

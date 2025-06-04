@@ -175,6 +175,23 @@ export const Example = memo(() => {
     }
   }, [jsonTextArea]);
 
+  // 使用ref设置JSON数据（不存入历史记录）
+  const handleSetJsonViaRefNoHistory = useCallback(() => {
+    if (editorRef.current) {
+      if (jsonTextArea.trim()) {
+        const success = editorRef.current.setJson(jsonTextArea, false);
+        if (success) {
+          message.success('通过ref设置JSON数据成功（未存入历史记录）');
+          setIsModalVisible(false);
+        }
+      } else {
+        message.warning('JSON字符串不能为空');
+      }
+    } else {
+      message.error('编辑器实例未准备好');
+    }
+  }, [jsonTextArea]);
+
   // 节点调试回调函数
   const handleNodeDebug = useCallback((node: IWorkFlowNode) => {
     console.log('调试节点信息:', node);
@@ -263,7 +280,10 @@ export const Example = memo(() => {
             应用(初始化)
           </Button>,
           <Button key="setViaRef" type="primary" onClick={handleSetJsonViaRef}>
-            设置(ref)
+            设置(存入历史)
+          </Button>,
+          <Button key="setViaRefNoHistory" onClick={handleSetJsonViaRefNoHistory}>
+            设置(不存入历史)
           </Button>,
         ]}
       >

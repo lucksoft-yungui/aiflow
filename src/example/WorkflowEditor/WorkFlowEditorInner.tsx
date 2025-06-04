@@ -64,17 +64,18 @@ export interface WorkflowEditorRef {
    * 直接通过JSON对象或字符串设置编辑器中的文档数据
    * 
    * @param {IFlowJson | string} jsonData - 要设置的JSON数据，可以是对象或字符串
+   * @param {boolean} saveToHistory - 是否存入历史记录，默认为true
    * @returns {boolean} 返回设置是否成功
    * @example
    * ```ts
-   * // 使用JSON对象
+   * // 使用JSON对象，存入历史记录
    * const success = editorRef.current.setJson({ startNode: myNode });
    * 
-   * // 使用JSON字符串
-   * const success = editorRef.current.setJson('{"startNode": {...}}');
+   * // 使用JSON字符串，不存入历史记录
+   * const success = editorRef.current.setJson('{"startNode": {...}}', false);
    * ```
    */
-  setJson: (jsonData: IFlowJson | string) => boolean;
+  setJson: (jsonData: IFlowJson | string, saveToHistory?: boolean) => boolean;
 }
 
 /**
