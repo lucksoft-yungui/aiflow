@@ -11,7 +11,7 @@ export const ContentPlaceholder = memo((
   return (
     <span
       className={className("text", secondary ? " secondary" : "")}
-      style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      style={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}
     >
       {text}
     </span>
