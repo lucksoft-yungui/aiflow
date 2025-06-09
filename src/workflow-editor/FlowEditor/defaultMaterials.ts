@@ -15,7 +15,7 @@ export const defaultMaterials: INodeMaterial[] = [
       //默认配置，可以把类型上移一层，但是如果增加其它默认属性的话，不利于扩展
       nodeType: NodeType.start,
       agent: {
-        key: "ExtractDocumentAgent",
+        key: "StructuredExtractionAgent",
         pretreatment: true,
         level: "文档结构分析",
         enabled: true
