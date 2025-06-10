@@ -56,6 +56,7 @@ export const SettingsPanel = memo(() => {
       placement="right"
       width={656}
       closable={false}
+      maskClosable={false}
       extra={
         <Button
           size="small"
