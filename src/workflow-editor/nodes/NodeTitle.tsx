@@ -134,7 +134,7 @@ export const NodeTitle = memo((props: {
   const editorStore = useEditorEngine()
   
   // 检查agent是否被禁用
-  const isAgentDisabled = node.agent?.enabled === false
+  const isAgentDisabled = node.agent?.rule?.enabled === false
 
   useEffect(() => {
     setInputValue(node.name)

@@ -12,15 +12,16 @@ export interface IRuleSettings {
     title: string,
     pretreatment: boolean,
     level: string,
-    thinking: boolean,
     rule: {
         decisionRules: string,
         question: string,
         example: string,
-        reference: string
+        reference: string,
+        thinking: boolean,
+        enabled: boolean,
+        extraPrompt: string
     },
-    directory: string[],
-    enabled: boolean
+    directory: string[]
 }
 
 export const RulePanel = memo((
@@ -38,15 +39,16 @@ export const RulePanel = memo((
             title: "",
             pretreatment: false,
             level: "",
-            thinking: false,
             rule: {
                 decisionRules: "",
                 question: "",
                 example: "",
-                reference: ""
+                reference: "",
+                thinking: false,
+                enabled: true,
+                extraPrompt: ""
             },
-            directory: [],
-            enabled: true
+            directory: []
         };
         
         // 如果有props.value，使用props.value的内容作为基础
@@ -58,15 +60,16 @@ export const RulePanel = memo((
                 // 确保rule对象被正确合并
                 rule: {
                     ...defaultConfig.rule,
-                    ...(props.value?.rule || {})
+                    ...(props.value?.rule || {}),
+                    // 如果原来的thinking和enabled在顶层，将它们移到rule中
+                    thinking: props.value?.rule?.thinking !== undefined ? props.value.rule.thinking : (props.value as any)?.thinking !== undefined ? (props.value as any).thinking : false,
+                    enabled: props.value?.rule?.enabled !== undefined ? props.value.rule.enabled : (props.value as any)?.enabled !== undefined ? (props.value as any).enabled : true
                 },
                 // 确保数组被正确合并
                 directory: Array.isArray(props.value?.directory) ? [...(props.value?.directory as string[])] : [],
                 // 确保key和pretreatment不变
                 key: props.value?.key || "",
-                pretreatment: props.value?.pretreatment !== undefined ? props.value?.pretreatment : false,
-                // 确保thinking是boolean类型
-                thinking: props.value?.thinking !== undefined ? props.value?.thinking : false
+                pretreatment: props.value?.pretreatment !== undefined ? props.value?.pretreatment : false
             };
         }
         
@@ -145,15 +148,16 @@ export const RulePanel = memo((
                 title: "",
                 pretreatment: false,
                 level: "",
-                thinking: false,
                 rule: {
                     decisionRules: "",
                     question: "",
                     example: "",
-                    reference: ""
+                    reference: "",
+                    thinking: false,
+                    enabled: true,
+                    extraPrompt: ""
                 },
-                directory: [],
-                enabled: true
+                directory: []
             };
             
             // 更新配置，确保所有字段都正确更新
@@ -165,15 +169,16 @@ export const RulePanel = memo((
                     // 确保rule对象被正确合并
                     rule: {
                         ...defaultConfig.rule,
-                        ...(props.value?.rule || {})
+                        ...(props.value?.rule || {}),
+                        // 如果原来的thinking和enabled在顶层，将它们移到rule中
+                        thinking: props.value?.rule?.thinking !== undefined ? props.value.rule.thinking : (props.value as any)?.thinking !== undefined ? (props.value as any).thinking : false,
+                        enabled: props.value?.rule?.enabled !== undefined ? props.value.rule.enabled : (props.value as any)?.enabled !== undefined ? (props.value as any).enabled : true
                     },
                     // 确保数组被正确合并
                     directory: Array.isArray(props.value?.directory) ? [...(props.value?.directory as string[])] : [],
                     // 确保key和pretreatment不变
                     key: props.value?.key || "",
-                    pretreatment: props.value?.pretreatment !== undefined ? props.value?.pretreatment : false,
-                    // 确保thinking是boolean类型
-                    thinking: props.value?.thinking !== undefined ? props.value?.thinking : false
+                    pretreatment: props.value?.pretreatment !== undefined ? props.value?.pretreatment : false
                 };
                 
                 console.log("更新后的config:", updated);
@@ -183,12 +188,23 @@ export const RulePanel = memo((
     }, [props.value]);
 
     const handleThinkingChange = (checked: boolean) => {
-        updateConfig(prev => ({ thinking: checked }));
+        updateConfig(prev => ({ 
+            rule: { ...prev.rule, thinking: checked } 
+        }));
     };
 
     const handleEnabledChange = (checked: boolean) => {
-        updateConfig(prev => ({ enabled: checked }));
+        updateConfig(prev => ({ 
+            rule: { ...prev.rule, enabled: checked } 
+        }));
     };
+
+    const handleExtraPromptChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        updateConfig(prev => ({ 
+            rule: { ...prev.rule, extraPrompt: e.target.value } 
+        }));
+    };
+
 
     return (
         <FormCardContent>
@@ -243,9 +259,16 @@ export const RulePanel = memo((
                     value={config.rule.reference}
                 />
             </FormCard>
+            <FormCard title={t("extraPrompt")}>
+            <TextArea rows={4}
+                    placeholder={t("pleaseSelectExtraPrompt")}
+                    onChange={handleExtraPromptChange}
+                    value={config.rule.extraPrompt}
+                />
+            </FormCard>
             <FormCard title={t("thinking")}>
                 <Checkbox
-                    checked={config.thinking}
+                    checked={config.rule.thinking}
                     onChange={(e) => handleThinkingChange(e.target.checked)}
                 >
                     {t("enableThinking")}
@@ -253,7 +276,7 @@ export const RulePanel = memo((
             </FormCard>
             <FormCard title={t("enabled")}>
                 <Checkbox
-                    checked={config.enabled}
+                    checked={config.rule.enabled}
                     onChange={(e) => handleEnabledChange(e.target.checked)}
                 >
                     {t("enableEnabled")}

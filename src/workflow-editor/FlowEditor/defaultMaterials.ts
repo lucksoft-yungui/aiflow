@@ -18,7 +18,9 @@ export const defaultMaterials: INodeMaterial[] = [
         key: "StructuredExtractionAgent",
         pretreatment: true,
         level: "文档结构分析",
-        enabled: true
+        rule: {
+          enabled: true,
+        }
       }
     },
     //不在物料板显示
@@ -60,7 +62,9 @@ export const defaultMaterials: INodeMaterial[] = [
       agent: {
         key: "SemanticAnalysisAgent",
         pretreatment: false,
-        enabled: true
+        rule: {
+          enabled: true,
+        }
       }
     },
   },
@@ -75,7 +79,9 @@ export const defaultMaterials: INodeMaterial[] = [
         key: "SpellCheckAgent",
         pretreatment: false,
         level: "文档基础校验",
-        enabled: true
+        rule: {
+          enabled: true,
+        }
       }
     },
   },
@@ -90,7 +96,9 @@ export const defaultMaterials: INodeMaterial[] = [
         key: "CommentAgent",
         pretreatment: false,
         level: "校验结果处理",
-        enabled: true
+        rule: {
+          enabled: true,
+        }
       }
     },
   },

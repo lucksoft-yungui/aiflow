@@ -95,6 +95,8 @@ export const defalutLocales: ILocales = {
     enableThinking: "启用深度思考",
     enabled: "启用",
     enableEnabled: "启用规则",
+    extraPrompt: "额外提示",
+    pleaseSelectExtraPrompt: "请选择额外提示",
   },
   'en-US': {
     baseSettings: "Base Settings",
@@ -190,5 +192,7 @@ export const defalutLocales: ILocales = {
     enableThinking: "Enable Deep Thinking",
     enabled: "Enabled",
     enableEnabled: "Enable Rule",
+    extraPrompt: "Extra Prompt",
+    pleaseSelectExtraPrompt: "Please select extra prompt",
   }
 }
