@@ -16,16 +16,18 @@ export enum NodeType {
   // 错别字检查节点
   spellCheck = "spellCheck",
   // 生成批注节点
-  generateComment = "generateComment"
+  generateComment = "generateComment",
+  // 语法检测节点
+  typoCheck = "typoCheck",
 }
 
 //审批流节点
-export interface IWorkFlowNode<Config = unknown>{
+export interface IWorkFlowNode<Config = unknown> {
   id: string
   //名称
   name?: string
   //string可以用于自定义节点，暂时用不上
-  nodeType: NodeType | string 
+  nodeType: NodeType | string
   //描述
   desc?: string
   //子节点
@@ -68,7 +70,7 @@ export interface IWorkflow {
   //审批流Id
   flowId: string;
   //审批流名称
-  name?:string;
+  name?: string;
   //开始节点
   startNode: IWorkFlowNode;
 }

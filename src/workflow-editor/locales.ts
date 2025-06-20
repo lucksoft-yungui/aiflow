@@ -70,7 +70,7 @@ export const defalutLocales: ILocales = {
     addAndGroup: "添加且组",
     addOrGroup: "添加或组",
     rule: "规则校验",
-    spellCheck: "错别字检查",
+    spellCheck: "语法检测",
     generateComment: "生成批注",
     ruleChapter: "校验章节",
     pleaseSelectRuleChapter: "请选择校验章节",
@@ -97,6 +97,7 @@ export const defalutLocales: ILocales = {
     enableEnabled: "启用规则",
     extraPrompt: "额外提示",
     pleaseSelectExtraPrompt: "请选择额外提示",
+    typoCheck:"错别字检查"
   },
   'en-US': {
     baseSettings: "Base Settings",
@@ -167,7 +168,7 @@ export const defalutLocales: ILocales = {
     addAndGroup: "Add And Group",
     addOrGroup: "Add Or Group",
     rule: "Rule Check",
-    spellCheck: "Spell Check",
+    spellCheck: "Grammar Check",
     generateComment: "Generate Comment",
     ruleChapter: "Rule Chapter",
     pleaseSelectRuleChapter: "Please select rule chapter",
@@ -194,5 +195,6 @@ export const defalutLocales: ILocales = {
     enableEnabled: "Enable Rule",
     extraPrompt: "Extra Prompt",
     pleaseSelectExtraPrompt: "Please select extra prompt",
+    typoCheck: "Typo Check"
   }
 }

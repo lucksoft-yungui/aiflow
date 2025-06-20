@@ -59,6 +59,16 @@ export const generateCommentIcon = <span role="img" className="anticon">
   </svg>
 </span>
 
+// 错别字检查节点
+export const typoCheckIcon = <span role="img" className="anticon">
+  <svg width='1em' height="1em" fill="currentColor" viewBox="0 0 1024 1024">
+    <path d="M768 64H256c-35.2 0-64 28.8-64 64v576c0 35.2 28.8 64 64 64h512c35.2 0 64-28.8 64-64V128c0-35.2-28.8-64-64-64zM320 256h384a32 32 0 0 1 0 64H320a32 32 0 0 1 0-64z m0 128h384a32 32 0 0 1 0 64H320a32 32 0 0 1 0-64z m0 128h256a32 32 0 0 1 0 64H320a32 32 0 0 1 0-64z" p-id="1866"></path>
+    <path d="M896 448c-17.673 0-32 14.327-32 32v288c0 17.673-14.327 32-32 32H512c-17.673 0-32 14.327-32 32s14.327 32 32 32h320c53.019 0 96-42.981 96-96V480c0-17.673-14.327-32-32-32z" p-id="1867"></path>
+    <circle cx="672" cy="672" r="48" p-id="1868"></circle>
+    <path d="M744.485 599.515a32 32 0 0 1 0 45.255l-96 96a32 32 0 0 1-45.255 0l-48-48a32 32 0 0 1 45.255-45.255L622.115 669l73.115-73.115a32 32 0 0 1 45.255 0z" p-id="1869"></path>
+  </svg>
+</span>
+
 // 调试图标
 export const debugIcon = <span role="img" className="anticon">
   <svg width='1em' height="1em" fill="currentColor" viewBox="0 0 1024 1024">

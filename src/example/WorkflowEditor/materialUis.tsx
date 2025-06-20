@@ -79,7 +79,7 @@ export const materialUis: IMaterialUIs = {
     settersPanel: RulePanel,
     canOpenSettings: true
   },
-  //错别字检查节点
+  //语法检查节点
   [NodeType.spellCheck]: {
     viewContent: (node: IWorkFlowNode<any>, { t }) => {
       return <ContentPlaceholder text={t("spellCheck")} />
@@ -90,6 +90,13 @@ export const materialUis: IMaterialUIs = {
   [NodeType.generateComment]: {
     viewContent: (node: IWorkFlowNode<any>, { t }) => {
       return <ContentPlaceholder text={t("generateComment")} />
+    },
+    canOpenSettings: false
+  },
+   //错别字检查节点
+   [NodeType.typoCheck]: {
+    viewContent: (node: IWorkFlowNode<any>, { t }) => {
+      return <ContentPlaceholder text={t("typoCheck")} />
     },
     canOpenSettings: false
   },

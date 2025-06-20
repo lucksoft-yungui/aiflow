@@ -1,4 +1,4 @@
-import { routeIcon, dealIcon, notifierIcon, sealIcon, ruleIcon, spellCheckIcon, generateCommentIcon } from "../icons";
+import { routeIcon, dealIcon, notifierIcon, sealIcon, ruleIcon, spellCheckIcon, generateCommentIcon, typoCheckIcon } from "../icons";
 import { NodeType } from "../interfaces";
 import { INodeMaterial } from "../interfaces/material";
 import { createUuid } from "../utils/create-uuid";
@@ -68,7 +68,7 @@ export const defaultMaterials: INodeMaterial[] = [
       }
     },
   },
-  //错别字检查节点
+  //语法检测节点
   {
     color: "#8e44ad",
     label: "spellCheck",
@@ -79,6 +79,23 @@ export const defaultMaterials: INodeMaterial[] = [
         key: "SpellCheckAgent",
         pretreatment: false,
         level: "文档基础校验",
+        rule: {
+          enabled: true,
+        }
+      }
+    },
+  },
+   //错别字检查节点
+   {
+    color: "#8e44ad",
+    label: "typoCheck",
+    icon: typoCheckIcon,
+    defaultConfig: {
+      nodeType: NodeType.typoCheck,
+      agent: {
+        key: "TypoCheckAgent",
+        pretreatment: false,
+        level: "错别字校验",
         rule: {
           enabled: true,
         }
