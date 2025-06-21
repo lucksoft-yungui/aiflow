@@ -1,8 +1,7 @@
 import { memo, useState, useEffect } from "react"
 import { useTranslate } from "../../workflow-editor/react-locales"
 import { FormCard, FormCardContent } from "./FormCard"
-import { Select, Checkbox } from 'antd';
-import type { SelectProps } from 'antd';
+import { Checkbox } from 'antd';
 import { Input } from 'antd';
 
 const { TextArea } = Input;
@@ -19,7 +18,9 @@ export interface IRuleSettings {
         reference: string,
         thinking: boolean,
         enabled: boolean,
-        extraPrompt: string
+        extraPrompt: string,
+        targetText: string,
+        targetLevel: string
     },
     directory: string[]
 }
@@ -46,7 +47,9 @@ export const RulePanel = memo((
                 reference: "",
                 thinking: false,
                 enabled: true,
-                extraPrompt: ""
+                extraPrompt: "",
+                targetText: "",
+                targetLevel: ""
             },
             directory: []
         };
@@ -96,9 +99,13 @@ export const RulePanel = memo((
         props.onChange?.(newConfig);
     };
 
-    const handleChapterChange = (value: string[]) => {
-        // console.log(`selected ${value}`);
-        updateConfig(prev => ({ directory: value }));
+    const handleChapterChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        // console.log(`selected ${e.target.value}`);
+        const value = e.target.value || '';
+        // 将文本按换行符分割成数组，但保留空行以支持用户正在输入
+        updateConfig(prev => ({ 
+            directory: value.split('\n')
+        }));
     };
 
     const handleProblemConfigChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -155,7 +162,9 @@ export const RulePanel = memo((
                     reference: "",
                     thinking: false,
                     enabled: true,
-                    extraPrompt: ""
+                    extraPrompt: "",
+                    targetText: "",
+                    targetLevel: ""
                 },
                 directory: []
             };
@@ -175,7 +184,8 @@ export const RulePanel = memo((
                         enabled: props.value?.rule?.enabled !== undefined ? props.value.rule.enabled : (props.value as any)?.enabled !== undefined ? (props.value as any).enabled : true
                     },
                     // 确保数组被正确合并
-                    directory: Array.isArray(props.value?.directory) ? [...(props.value?.directory as string[])] : [],
+                    directory: Array.isArray(props.value?.directory) ? [...(props.value?.directory as string[])] : 
+                              (typeof props.value?.directory === 'string' ? [props.value.directory] : []),
                     // 确保key和pretreatment不变
                     key: props.value?.key || "",
                     pretreatment: props.value?.pretreatment !== undefined ? props.value?.pretreatment : false
@@ -205,6 +215,17 @@ export const RulePanel = memo((
         }));
     };
 
+    const handleTargetTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        updateConfig(prev => ({ 
+            rule: { ...prev.rule, targetText: e.target.value } 
+        }));
+    };
+
+    const handleTargetLevelChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        updateConfig(prev => ({ 
+            rule: { ...prev.rule, targetLevel: e.target.value } 
+        }));
+    };
 
     return (
         <FormCardContent>
@@ -223,12 +244,10 @@ export const RulePanel = memo((
                 />
             </FormCard>
             <FormCard title={t("ruleChapter")}>
-                <Select
-                    mode="tags"
-                    style={{ width: '100%' }}
+                <TextArea rows={4}
                     placeholder={t("pleaseSelectRuleChapter")}
                     onChange={handleChapterChange}
-                    value={config.directory}
+                    value={Array.isArray(config.directory) ? config.directory.join('\n') : ''}
                 />
             </FormCard>
             <FormCard title={t("problemConfiguration")}>
@@ -264,6 +283,20 @@ export const RulePanel = memo((
                     placeholder={t("pleaseSelectExtraPrompt")}
                     onChange={handleExtraPromptChange}
                     value={config.rule.extraPrompt}
+                />
+            </FormCard>
+            <FormCard title={t("targetText")}>
+                <TextArea rows={4}
+                    placeholder={t("pleaseSelectTargetText")}
+                    onChange={handleTargetTextChange}
+                    value={config.rule.targetText}
+                />
+            </FormCard>
+            <FormCard title={t("targetLevel")}>
+                <TextArea rows={4}
+                    placeholder={t("pleaseSelectTargetLevel")}
+                    onChange={handleTargetLevelChange}
+                    value={config.rule.targetLevel}
                 />
             </FormCard>
             <FormCard title={t("thinking")}>

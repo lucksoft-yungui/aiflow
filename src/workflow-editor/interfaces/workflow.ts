@@ -47,6 +47,8 @@ export interface IWorkFlowNode<Config = unknown> {
       thinking: boolean,
       enabled: boolean,
       extraPrompt: string,
+      targetText: string,
+      targetLevel: string,
     },
     directory: string[],
   }

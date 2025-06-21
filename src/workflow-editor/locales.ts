@@ -97,7 +97,11 @@ export const defalutLocales: ILocales = {
     enableEnabled: "启用规则",
     extraPrompt: "额外提示",
     pleaseSelectExtraPrompt: "请选择额外提示",
-    typoCheck:"错别字检查"
+    typoCheck:"错别字检查",
+    targetText: "目标原文",
+    pleaseSelectTargetText: "请输入目标原文",
+    targetLevel: "目标章节",
+    pleaseSelectTargetLevel: "请输入目标章节"
   },
   'en-US': {
     baseSettings: "Base Settings",
@@ -195,6 +199,10 @@ export const defalutLocales: ILocales = {
     enableEnabled: "Enable Rule",
     extraPrompt: "Extra Prompt",
     pleaseSelectExtraPrompt: "Please select extra prompt",
-    typoCheck: "Typo Check"
+    typoCheck: "Typo Check",
+    targetText: "Target Original",
+    pleaseSelectTargetText: "Please enter target original",
+    targetLevel: "Target Chapter",
+    pleaseSelectTargetLevel: "Please enter target chapter"
   }
 }
