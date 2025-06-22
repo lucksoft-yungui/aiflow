@@ -149,7 +149,7 @@ export const RulePanel = memo((
     // 监听props.value变化，更新所有表单值，同时确保key和pretreatment不变
     useEffect(() => {
         if (props.value) {
-            console.log("props.value变化:", props.value);
+            // console.log("props.value变化:", props.value);
             const defaultConfig = {
                 key: "",
                 title: "",
@@ -191,7 +191,7 @@ export const RulePanel = memo((
                     pretreatment: props.value?.pretreatment !== undefined ? props.value?.pretreatment : false
                 };
                 
-                console.log("更新后的config:", updated);
+                // console.log("更新后的config:", updated);
                 return updated;
             });
         }
