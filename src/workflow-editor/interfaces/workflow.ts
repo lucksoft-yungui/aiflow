@@ -19,6 +19,10 @@ export enum NodeType {
   generateComment = "generateComment",
   // 语法检测节点
   typoCheck = "typoCheck",
+  // 参考标准检查节点
+  AnnotateReferencesAgent =  "AnnotateReferencesAgent ",
+  // 智能体节点
+  agent = "agent",
 }
 
 //审批流节点

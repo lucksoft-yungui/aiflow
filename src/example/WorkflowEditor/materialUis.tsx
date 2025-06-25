@@ -100,4 +100,11 @@ export const materialUis: IMaterialUIs = {
     },
     canOpenSettings: false
   },
+  // 参考标准检查节点
+  [NodeType.AnnotateReferencesAgent]: {
+    viewContent: (node: IWorkFlowNode<any>, { t }) => {
+      return <ContentPlaceholder text={t("AnnotateReferencesAgent")} />
+    },
+    canOpenSettings: false
+  },
 } 

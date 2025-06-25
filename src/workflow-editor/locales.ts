@@ -101,7 +101,8 @@ export const defalutLocales: ILocales = {
     targetText: "目标原文",
     pleaseSelectTargetText: "请输入目标原文",
     targetLevel: "目标章节",
-    pleaseSelectTargetLevel: "请输入目标章节"
+    pleaseSelectTargetLevel: "请输入目标章节",
+    AnnotateReferencesAgent: "参考标准检查"
   },
   'en-US': {
     baseSettings: "Base Settings",
@@ -203,6 +204,7 @@ export const defalutLocales: ILocales = {
     targetText: "Target Original",
     pleaseSelectTargetText: "Please enter target original",
     targetLevel: "Target Chapter",
-    pleaseSelectTargetLevel: "Please enter target chapter"
+    pleaseSelectTargetLevel: "Please enter target chapter",
+    AnnotateReferencesAgent: "Annotate References Agent"
   }
 }

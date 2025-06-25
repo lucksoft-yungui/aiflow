@@ -1,4 +1,4 @@
-import { routeIcon, dealIcon, notifierIcon, sealIcon, ruleIcon, spellCheckIcon, generateCommentIcon, typoCheckIcon } from "../icons";
+import { routeIcon, dealIcon, notifierIcon, sealIcon, ruleIcon, spellCheckIcon, generateCommentIcon, typoCheckIcon, annotateReferencesIcon } from "../icons";
 import { NodeType } from "../interfaces";
 import { INodeMaterial } from "../interfaces/material";
 import { createUuid } from "../utils/create-uuid";
@@ -96,6 +96,23 @@ export const defaultMaterials: INodeMaterial[] = [
         key: "TypoCheckAgent",
         pretreatment: false,
         level: "错别字校验",
+        rule: {
+          enabled: true,
+        }
+      }
+    },
+  },
+   //错别字检查节点
+   {
+    color: "#8e44ad",
+    label: "AnnotateReferencesAgent",
+    icon: annotateReferencesIcon,
+    defaultConfig: {
+      nodeType: NodeType.AnnotateReferencesAgent,
+      agent: {
+        key: "AnnotateReferencesAgent",
+        pretreatment: false,
+        level: "参考标准检查",
         rule: {
           enabled: true,
         }
