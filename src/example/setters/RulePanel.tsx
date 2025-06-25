@@ -250,13 +250,6 @@ export const RulePanel = memo((
                     value={Array.isArray(config.directory) ? config.directory.join('\n') : ''}
                 />
             </FormCard>
-            <FormCard title={t("problemConfiguration")}>
-                <TextArea rows={4}
-                    placeholder={t("pleaseSelectProblemConfiguration")}
-                    onChange={handleProblemConfigChange}
-                    value={config.rule.question}
-                />
-            </FormCard>
             <FormCard title={t("judgementRule")}>
                 <TextArea rows={4}
                     placeholder={t("pleaseSelectJudgementRule")}
@@ -297,6 +290,13 @@ export const RulePanel = memo((
                     placeholder={t("pleaseSelectTargetLevel")}
                     onChange={handleTargetLevelChange}
                     value={config.rule.targetLevel}
+                />
+            </FormCard>
+            <FormCard title={t("problemConfiguration")}>
+                <TextArea rows={4}
+                    placeholder={t("pleaseSelectProblemConfiguration")}
+                    onChange={handleProblemConfigChange}
+                    value={config.rule.question}
                 />
             </FormCard>
             <FormCard title={t("thinking")}>
