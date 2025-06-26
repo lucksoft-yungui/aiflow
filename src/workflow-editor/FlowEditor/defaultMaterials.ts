@@ -162,7 +162,7 @@ export const defaultMaterials: INodeMaterial[] = [
     defaultConfig: {
       nodeType: NodeType.chapterContinuityCheckerAgent,
       agent: {
-        key: "AnnotateReferencesAgent",
+        key: "ChapterContinuityCheckerAgent",
         pretreatment: false,
         level: "参考标准检查",
         rule: {
