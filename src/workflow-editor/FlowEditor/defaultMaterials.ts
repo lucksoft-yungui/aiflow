@@ -52,6 +52,41 @@ export const defaultMaterials: INodeMaterial[] = [
   //     nodeType: NodeType.audit,
   //   },
   // },
+   //条件节点
+   {
+    color: "#15bc83",
+    label: "routeNode",
+    icon: routeIcon,
+    createDefault: ({ t }) => {
+      return {
+        id: createUuid(),
+        nodeType: NodeType.route,
+        conditionNodeList: [
+          {
+            id: createUuid(),
+            nodeType: NodeType.condition,
+            name: t?.("condition") + "1"
+          },
+          {
+            id: createUuid(),
+            nodeType: NodeType.condition,
+            name: t?.("condition") + "2"
+          }
+        ]
+      }
+    },
+
+  },
+  //分支节点
+  {
+    label: "condition",
+    color: "",
+    defaultConfig: {
+      nodeType: NodeType.condition,
+    },
+    //不在物料板显示
+    hidden: true,
+  },
   // 规则校验节点
   {
     color: "#ff943e",
@@ -102,13 +137,30 @@ export const defaultMaterials: INodeMaterial[] = [
       }
     },
   },
-   //错别字检查节点
+   // 参考标准检查节点
    {
     color: "#8e44ad",
-    label: "AnnotateReferencesAgent",
+    label: "annotateReferencesAgent",
     icon: annotateReferencesIcon,
     defaultConfig: {
-      nodeType: NodeType.AnnotateReferencesAgent,
+      nodeType: NodeType.annotateReferencesAgent,
+      agent: {
+        key: "AnnotateReferencesAgent",
+        pretreatment: false,
+        level: "参考标准检查",
+        rule: {
+          enabled: true,
+        }
+      }
+    },
+  },
+   // 参考标准检查节点
+   {
+    color: "#8e44ad",
+    label: "chapterContinuityCheckerAgent",
+    icon: annotateReferencesIcon,
+    defaultConfig: {
+      nodeType: NodeType.chapterContinuityCheckerAgent,
       agent: {
         key: "AnnotateReferencesAgent",
         pretreatment: false,
@@ -136,39 +188,5 @@ export const defaultMaterials: INodeMaterial[] = [
       }
     },
   },
-  //条件节点
-  {
-    color: "#15bc83",
-    label: "routeNode",
-    icon: routeIcon,
-    createDefault: ({ t }) => {
-      return {
-        id: createUuid(),
-        nodeType: NodeType.route,
-        conditionNodeList: [
-          {
-            id: createUuid(),
-            nodeType: NodeType.condition,
-            name: t?.("condition") + "1"
-          },
-          {
-            id: createUuid(),
-            nodeType: NodeType.condition,
-            name: t?.("condition") + "2"
-          }
-        ]
-      }
-    },
 
-  },
-  //分支节点
-  {
-    label: "condition",
-    color: "",
-    defaultConfig: {
-      nodeType: NodeType.condition,
-    },
-    //不在物料板显示
-    hidden: true,
-  },
 ]

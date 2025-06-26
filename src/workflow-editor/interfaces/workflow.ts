@@ -20,7 +20,9 @@ export enum NodeType {
   // 语法检测节点
   typoCheck = "typoCheck",
   // 参考标准检查节点
-  AnnotateReferencesAgent =  "AnnotateReferencesAgent ",
+  annotateReferencesAgent =  "AnnotateReferencesAgent ",
+  // 章节连续性检查节点
+  chapterContinuityCheckerAgent = "ChapterContinuityCheckerAgent",
   // 智能体节点
   agent = "agent",
 }

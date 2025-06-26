@@ -101,9 +101,16 @@ export const materialUis: IMaterialUIs = {
     canOpenSettings: false
   },
   // 参考标准检查节点
-  [NodeType.AnnotateReferencesAgent]: {
+  [NodeType.annotateReferencesAgent]: {
     viewContent: (node: IWorkFlowNode<any>, { t }) => {
-      return <ContentPlaceholder text={t("AnnotateReferencesAgent")} />
+      return <ContentPlaceholder text={t("annotateReferencesAgent")} />
+    },
+    canOpenSettings: false
+  },
+   // 参考标准检查节点
+   [NodeType.chapterContinuityCheckerAgent]: {
+    viewContent: (node: IWorkFlowNode<any>, { t }) => {
+      return <ContentPlaceholder text={t("chapterContinuityCheckerAgent")} />
     },
     canOpenSettings: false
   },
