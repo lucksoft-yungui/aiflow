@@ -164,7 +164,7 @@ export const defaultMaterials: INodeMaterial[] = [
       agent: {
         key: "ChapterContinuityCheckerAgent",
         pretreatment: false,
-        level: "参考标准检查",
+        level: "章节连续性检查",
         rule: {
           enabled: true,
         }
