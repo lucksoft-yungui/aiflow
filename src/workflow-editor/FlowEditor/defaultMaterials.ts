@@ -1,3 +1,4 @@
+import { title } from "process";
 import { routeIcon, dealIcon, notifierIcon, sealIcon, ruleIcon, spellCheckIcon, generateCommentIcon, typoCheckIcon, annotateReferencesIcon } from "../icons";
 import { NodeType } from "../interfaces";
 import { INodeMaterial } from "../interfaces/material";
@@ -114,6 +115,7 @@ export const defaultMaterials: INodeMaterial[] = [
         key: "SpellCheckAgent",
         pretreatment: false,
         level: "文档基础校验",
+        title:"语法检查",
         rule: {
           enabled: true,
         }
@@ -131,6 +133,7 @@ export const defaultMaterials: INodeMaterial[] = [
         key: "TypoCheckAgent",
         pretreatment: false,
         level: "错别字校验",
+        title:"错别字检查",
         rule: {
           enabled: true,
         }
@@ -148,6 +151,7 @@ export const defaultMaterials: INodeMaterial[] = [
         key: "AnnotateReferencesAgent",
         pretreatment: false,
         level: "参考标准检查",
+        title:"参考标准检查",
         rule: {
           enabled: true,
         }
@@ -165,6 +169,7 @@ export const defaultMaterials: INodeMaterial[] = [
         key: "ChapterContinuityCheckerAgent",
         pretreatment: false,
         level: "章节连续性检查",
+        title:"章节连续性检查",
         rule: {
           enabled: true,
         }
@@ -182,6 +187,7 @@ export const defaultMaterials: INodeMaterial[] = [
         key: "CommentAgent",
         pretreatment: false,
         level: "校验结果处理",
+        title:"生成批注",
         rule: {
           enabled: true,
         }
