@@ -103,7 +103,9 @@ export const defalutLocales: ILocales = {
     targetLevel: "目标章节",
     pleaseSelectTargetLevel: "请输入目标章节",
     annotateReferencesAgent: "参考标准检查",
-    chapterContinuityCheckerAgent: "章节连续性检查"
+    chapterContinuityCheckerAgent: "章节连续性检查",
+    targetComment: "自定义批注",
+    pleaseSelectTargetComment: "请输入自定义批注"
   },
   'en-US': {
     baseSettings: "Base Settings",
@@ -207,6 +209,8 @@ export const defalutLocales: ILocales = {
     targetLevel: "Target Chapter",
     pleaseSelectTargetLevel: "Please enter target chapter",
     annotateReferencesAgent: "Annotate References Agent",
-    chapterContinuityCheckerAgent: "Chapter Continuity Checker Agent"
+    chapterContinuityCheckerAgent: "Chapter Continuity Checker Agent",
+    targetComment: "Custom Comment",
+    pleaseSelectTargetComment: "Please enter custom comment"
   }
 }

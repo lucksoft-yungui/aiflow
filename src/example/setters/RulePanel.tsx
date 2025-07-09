@@ -20,7 +20,8 @@ export interface IRuleSettings {
         enabled: boolean,
         extraPrompt: string,
         targetText: string,
-        targetLevel: string
+        targetLevel: string,
+        targetComment: string
     },
     directory: string[]
 }
@@ -49,7 +50,8 @@ export const RulePanel = memo((
                 enabled: true,
                 extraPrompt: "",
                 targetText: "",
-                targetLevel: ""
+                targetLevel: "",
+                targetComment: ""
             },
             directory: []
         };
@@ -164,7 +166,8 @@ export const RulePanel = memo((
                     enabled: true,
                     extraPrompt: "",
                     targetText: "",
-                    targetLevel: ""
+                    targetLevel: "",
+                    targetComment: ""
                 },
                 directory: []
             };
@@ -224,6 +227,12 @@ export const RulePanel = memo((
     const handleTargetLevelChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         updateConfig(prev => ({ 
             rule: { ...prev.rule, targetLevel: e.target.value } 
+        }));
+    };
+
+    const handleTargetCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        updateConfig(prev => ({ 
+            rule: { ...prev.rule, targetComment: e.target.value } 
         }));
     };
 
@@ -290,6 +299,13 @@ export const RulePanel = memo((
                     placeholder={t("pleaseSelectTargetLevel")}
                     onChange={handleTargetLevelChange}
                     value={config.rule.targetLevel}
+                />
+            </FormCard>
+            <FormCard title={t("targetComment")}>
+                <TextArea rows={4}
+                    placeholder={t("pleaseSelectTargetComment")}
+                    onChange={handleTargetCommentChange}
+                    value={config.rule.targetComment}
                 />
             </FormCard>
             <FormCard title={t("problemConfiguration")}>
