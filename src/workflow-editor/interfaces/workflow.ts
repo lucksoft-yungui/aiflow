@@ -56,6 +56,7 @@ export interface IWorkFlowNode<Config = unknown> {
       targetText: string,
       targetLevel: string,
       targetComment: string,
+      loopParagraph: boolean,
     },
     directory: string[],
   }

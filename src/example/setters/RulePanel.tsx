@@ -18,6 +18,7 @@ export interface IRuleSettings {
         reference: string,
         thinking: boolean,
         enabled: boolean,
+        loopParagraph: boolean,
         extraPrompt: string,
         targetText: string,
         targetLevel: string,
@@ -48,6 +49,7 @@ export const RulePanel = memo((
                 reference: "",
                 thinking: false,
                 enabled: true,
+                loopParagraph: false,
                 extraPrompt: "",
                 targetText: "",
                 targetLevel: "",
@@ -68,7 +70,8 @@ export const RulePanel = memo((
                     ...(props.value?.rule || {}),
                     // 如果原来的thinking和enabled在顶层，将它们移到rule中
                     thinking: props.value?.rule?.thinking !== undefined ? props.value.rule.thinking : (props.value as any)?.thinking !== undefined ? (props.value as any).thinking : false,
-                    enabled: props.value?.rule?.enabled !== undefined ? props.value.rule.enabled : (props.value as any)?.enabled !== undefined ? (props.value as any).enabled : true
+                    enabled: props.value?.rule?.enabled !== undefined ? props.value.rule.enabled : (props.value as any)?.enabled !== undefined ? (props.value as any).enabled : true,
+                    loopParagraph: props.value?.rule?.loopParagraph !== undefined ? (props.value.rule as any).loopParagraph : false
                 },
                 // 确保数组被正确合并
                 directory: Array.isArray(props.value?.directory) ? [...(props.value?.directory as string[])] : [],
@@ -164,6 +167,7 @@ export const RulePanel = memo((
                     reference: "",
                     thinking: false,
                     enabled: true,
+                    loopParagraph: false,
                     extraPrompt: "",
                     targetText: "",
                     targetLevel: "",
@@ -184,7 +188,8 @@ export const RulePanel = memo((
                         ...(props.value?.rule || {}),
                         // 如果原来的thinking和enabled在顶层，将它们移到rule中
                         thinking: props.value?.rule?.thinking !== undefined ? props.value.rule.thinking : (props.value as any)?.thinking !== undefined ? (props.value as any).thinking : false,
-                        enabled: props.value?.rule?.enabled !== undefined ? props.value.rule.enabled : (props.value as any)?.enabled !== undefined ? (props.value as any).enabled : true
+                        enabled: props.value?.rule?.enabled !== undefined ? props.value.rule.enabled : (props.value as any)?.enabled !== undefined ? (props.value as any).enabled : true,
+                        loopParagraph: props.value?.rule?.loopParagraph !== undefined ? (props.value.rule as any).loopParagraph : false
                     },
                     // 确保数组被正确合并
                     directory: Array.isArray(props.value?.directory) ? [...(props.value?.directory as string[])] : 
@@ -209,6 +214,12 @@ export const RulePanel = memo((
     const handleEnabledChange = (checked: boolean) => {
         updateConfig(prev => ({ 
             rule: { ...prev.rule, enabled: checked } 
+        }));
+    };
+
+    const handleLoopParagraphChange = (checked: boolean) => {
+        updateConfig(prev => ({ 
+            rule: { ...prev.rule, loopParagraph: checked } 
         }));
     };
 
@@ -321,6 +332,14 @@ export const RulePanel = memo((
                     onChange={(e) => handleThinkingChange(e.target.checked)}
                 >
                     {t("enableThinking")}
+                </Checkbox>
+            </FormCard>
+            <FormCard title={t("loopParagraph")}>
+                <Checkbox
+                    checked={config.rule.loopParagraph}
+                    onChange={(e) => handleLoopParagraphChange(e.target.checked)}
+                >
+                    {t("enableLoopParagraph")}
                 </Checkbox>
             </FormCard>
             <FormCard title={t("enabled")}>
