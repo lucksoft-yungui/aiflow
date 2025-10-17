@@ -1,9 +1,8 @@
-import { memo, useEffect, useState } from "react"
+import { memo, useEffect, useMemo, useState } from "react"
 import { IThemeToken } from "../../theme"
 import { ConfigRoot } from "../ConfigRoot"
 import { ILocales, LocalesManager } from "@rxdrag/locales"
 import { LocalesContext } from "../../react-locales"
-import { defalutLocales } from "../../locales"
 import { IMaterialUIs, INodeMaterial } from "../../interfaces/material"
 import { IWorkFlowNode } from "../../interfaces"
 import { FlowEditorScopeInner } from "./FlowEditorScopeInner"
@@ -19,6 +18,8 @@ export const FlowEditorScope = memo((props: {
   lang?: string,
   //多语言资源
   locales?: ILocales,
+  //默认多语言资源
+  defaultLocales?: ILocales,
   //自定义物料
   materials?: INodeMaterial[],
   //所有物料的Ui配置，包括自定义物料跟预定义物料
@@ -30,8 +31,9 @@ export const FlowEditorScope = memo((props: {
   //节点调试
   onNodeDedug?: (node: IWorkFlowNode) => void,
 }) => {
-  const { children, lang, locales, ...other } = props
-  const [localesManager, setLocalesManager] = useState(new LocalesManager(lang, defalutLocales))
+  const { children, lang, locales, defaultLocales, ...other } = props
+  const baseLocales = useMemo(() => defaultLocales || {}, [defaultLocales])
+  const [localesManager, setLocalesManager] = useState(() => new LocalesManager(lang, baseLocales))
 
   useEffect(() => {
     locales && localesManager.registerLocales(locales)
@@ -39,8 +41,8 @@ export const FlowEditorScope = memo((props: {
 
   useEffect(() => {
     //暂时这么处理，后面把语言切换移动到locales-react
-    setLocalesManager(new LocalesManager(lang, defalutLocales))
-  }, [lang])
+    setLocalesManager(new LocalesManager(lang, baseLocales))
+  }, [lang, baseLocales])
 
   return (
     <LocalesContext.Provider value={localesManager}>

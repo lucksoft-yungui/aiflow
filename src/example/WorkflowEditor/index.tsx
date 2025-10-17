@@ -6,6 +6,9 @@ import { FlowEditorScope } from "../../workflow-editor/"
 import { IFlowJson } from "../../workflow-editor/hooks/useImport"
 import { IWorkFlowNode } from "../../workflow-editor/interfaces"
 import { materialUis } from "./materialUis"
+import "./nodeTypes"
+import "./defaultMaterials"
+import { workflowEditorDefaultLocales } from "./locales"
 
 /**
  * WorkflowEditor组件的属性定义
@@ -62,12 +65,12 @@ export const WorkflowEditor = forwardRef<WorkflowEditorRef, WorkflowEditorProps>
   const { themeMode, themeToken, lang, locales, initialJson, jsonString, onNodeDedug, ...other } = props;
   
   // 使用从文件导入的materialUis
-  
   return (
     <FlowEditorScope
       mode={themeMode}
       themeToken={themeToken}
       lang={lang}
+      defaultLocales={workflowEditorDefaultLocales}
       locales={locales}
       materialUis={materialUis}
       initialJson={initialJson}

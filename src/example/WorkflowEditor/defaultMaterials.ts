@@ -1,11 +1,19 @@
-import { routeIcon, dealIcon, notifierIcon, sealIcon, ruleIcon, spellCheckIcon, generateCommentIcon, typoCheckIcon, annotateReferencesIcon } from "../icons";
-import { NodeType } from "../interfaces";
-import { INodeMaterial } from "../interfaces/material";
-import { createUuid } from "../utils/create-uuid";
+import { setDefaultMaterials } from "../../workflow-editor/FlowEditor/defaultMaterials";
+import { NodeType } from "../../workflow-editor/interfaces";
+import { INodeMaterial } from "../../workflow-editor/interfaces/material";
+import { createUuid } from "../../workflow-editor/utils/create-uuid";
+import {
+  generateCommentIcon,
+  spellCheckIcon,
+  annotateReferencesIcon,
+  typoCheckIcon,
+  routeIcon,
+  ruleIcon,
+} from "../../workflow-editor/icons";
 
-const buildBuiltinDefaultMaterials = (): INodeMaterial[] => ([
+const customDefaultMaterials: INodeMaterial[] = [
   {
-    label: "promoter",
+    label: "samplePromoter",
     color: "rgb(87, 106, 149)",
     defaultConfig: {
       nodeType: NodeType.start,
@@ -157,18 +165,8 @@ const buildBuiltinDefaultMaterials = (): INodeMaterial[] => ([
       }
     },
   },
-]);
+];
 
-export const builtinDefaultMaterials: INodeMaterial[] = buildBuiltinDefaultMaterials();
+setDefaultMaterials(customDefaultMaterials);
 
-export let defaultMaterials: INodeMaterial[] = buildBuiltinDefaultMaterials();
-
-export const getDefaultMaterials = (): INodeMaterial[] => defaultMaterials;
-
-export const setDefaultMaterials = (materials: INodeMaterial[]): void => {
-  defaultMaterials = materials;
-};
-
-export const resetDefaultMaterials = (): void => {
-  defaultMaterials = buildBuiltinDefaultMaterials();
-};
+export { customDefaultMaterials };

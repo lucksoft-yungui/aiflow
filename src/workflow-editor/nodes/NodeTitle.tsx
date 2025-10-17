@@ -136,6 +136,10 @@ export const NodeTitle = memo((props: {
   // 检查agent是否被禁用
   const isAgentDisabled = node.agent?.rule?.enabled === false
 
+  const defaultConfig = material?.defaultConfig; 
+
+  console.log("defaultConfig", defaultConfig);
+
   useEffect(() => {
     setInputValue(node.name)
   }, [node.name])
@@ -243,7 +247,7 @@ export const NodeTitle = memo((props: {
           <NodeTitleText className="text" >{node.name}</NodeTitleText>
         </TitleResponse>
         <ButtonsContainer>
-          <IconButton
+          {defaultConfig?.canDebug && <IconButton
             className="icon-btn copy-btn"
             type="text"
             size="small"
@@ -253,7 +257,7 @@ export const NodeTitle = memo((props: {
             title="调试"
             style={{ color: "#fff" }}
             disabled={isAgentDisabled}
-          />
+          />}
           <IconButton
             className="icon-btn copy-btn"
             type="text"

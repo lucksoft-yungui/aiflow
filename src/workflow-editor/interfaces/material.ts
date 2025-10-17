@@ -1,4 +1,4 @@
-import { IWorkFlowNode, NodeType } from "./workflow"
+import { IWorkFlowNode, NodeTypeValue } from "./workflow"
 
 //国际化翻译函数，外部注入，这里使用的是@rxdrag/locales的实现（通过react hooks转了一下）
 export type Translate = (msg: string) => string | undefined
@@ -18,7 +18,7 @@ export interface INodeMaterial<Context extends IContext = IContext> {
   //图标
   icon?: React.ReactElement
   //默认配置
-  defaultConfig?: { nodeType: NodeType | string, [key: string]: any }
+  defaultConfig?: { nodeType: NodeTypeValue | string, [key: string]: any }
   //创建一个默认节点，跟defaultCofig只选一个
   createDefault?: (context: Context) => IWorkFlowNode
   //从物料面板隐藏，比如发起人节点、条件分支内的分支节点

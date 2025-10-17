@@ -1,6 +1,6 @@
 import { ILocales } from "@rxdrag/locales";
 
-export const defalutLocales: ILocales = {
+export const workflowEditorDefaultLocales: ILocales = {
   "zh-CN": {
     baseSettings: "基础设置",
     formDesign: "表单设计",
@@ -99,7 +99,7 @@ export const defalutLocales: ILocales = {
     enableEnabled: "启用规则",
     extraPrompt: "额外提示",
     pleaseSelectExtraPrompt: "请选择额外提示",
-    typoCheck:"错别字检查",
+    typoCheck: "错别字检查",
     targetText: "目标原文",
     pleaseSelectTargetText: "请输入目标原文",
     targetLevel: "目标章节",
@@ -107,9 +107,18 @@ export const defalutLocales: ILocales = {
     annotateReferencesAgent: "参考标准检查",
     chapterContinuityCheckerAgent: "章节连续性检查",
     targetComment: "自定义批注",
-    pleaseSelectTargetComment: "请输入自定义批注"
+    pleaseSelectTargetComment: "请输入自定义批注",
+    samplePromoter: "示例发起人",
+    sampleRoute: "示例路由",
+    sampleCondition: "示例条件",
+    sampleRule: "语义规则检查",
+    sampleSpellCheck: "语法检查",
+    sampleTypoCheck: "错别字检查",
+    sampleAnnotateReferences: "参考标准检查",
+    sampleChapterContinuity: "章节连续性检查",
+    sampleGenerateComment: "生成批注",
   },
-  'en-US': {
+  "en-US": {
     baseSettings: "Base Settings",
     formDesign: "Form Design",
     flowDesign: "Flow Design",
@@ -133,7 +142,7 @@ export const defalutLocales: ILocales = {
     priority: "Priority",
     pleaseSetCondition: "Please set condition",
     pleaseChooseApprover: "Choose Approver",
-    pleaseChooseNotifier: "Selft Choose",
+    pleaseChooseNotifier: "Self Choose",
     pleaseChooseDealer: "Choose Dealer",
     ofCopy: " of Copy",
     confirm: "Confirm",
@@ -155,7 +164,7 @@ export const defalutLocales: ILocales = {
     operateSuccess: "Operate success",
     fileIllegal: "File Illegal",
     noSelectedApprover: "No selected approver",
-    noSelectedDealer: "NO selected dealer",
+    noSelectedDealer: "No selected dealer",
     noSetCondition: "Not set condition",
     cantNotPublish: "Can not publish",
     canNotPublishTip: "The following content is incomplete, please modify and publish it",
@@ -171,7 +180,7 @@ export const defalutLocales: ILocales = {
     ge: "More than or equal",
     like: "Contain",
     like_start: "Contain on start",
-    like_end: "Contian on end",
+    like_end: "Contain on end",
     not_empty: "Not empty",
     empty: "Empty",
     addExpression: "Add Expression",
@@ -182,7 +191,7 @@ export const defalutLocales: ILocales = {
     generateComment: "Generate Comment",
     ruleChapter: "Rule Chapter",
     pleaseSelectRuleChapter: "Please select rule chapter",
-    problemConfiguration: "note",
+    problemConfiguration: "Note",
     pleaseSelectProblemConfiguration: "Please select problem configuration",
     judgementRule: "Judgement Rule",
     pleaseSelectJudgementRule: "Please select judgement rule",
@@ -215,6 +224,15 @@ export const defalutLocales: ILocales = {
     annotateReferencesAgent: "Annotate References Agent",
     chapterContinuityCheckerAgent: "Chapter Continuity Checker Agent",
     targetComment: "Custom Comment",
-    pleaseSelectTargetComment: "Please enter custom comment"
+    pleaseSelectTargetComment: "Please enter custom comment",
+    samplePromoter: "Sample Promoter",
+    sampleRoute: "Sample Route",
+    sampleCondition: "Sample Condition",
+    sampleRule: "Semantic Rule",
+    sampleSpellCheck: "Grammar Check",
+    sampleTypoCheck: "Typo Check",
+    sampleAnnotateReferences: "Reference Check",
+    sampleChapterContinuity: "Chapter Continuity",
+    sampleGenerateComment: "Generate Comment",
   }
-}
+};

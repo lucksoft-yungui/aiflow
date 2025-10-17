@@ -6,7 +6,7 @@ import { WorkflowEditorStoreContext } from "../../contexts";
 import { INodeMaterial, IMaterialUIs, IWorkFlowNode } from "../../interfaces";
 import { useTranslate } from "../../react-locales";
 import { IThemeToken } from "../../theme";
-import { defaultMaterials } from "../defaultMaterials";
+import { getDefaultMaterials } from "../defaultMaterials";
 import { IFlowJson } from "../../hooks/useImport";
 import { message } from "antd";
 
@@ -80,7 +80,9 @@ export const FlowEditorScopeInner = memo((props: {
   useEffect(() => {
     const oldMaterials = store.materials
     const oldMaterialUis = store.materialUis
-    store.materials = [...oldMaterials, ...defaultMaterials, ...materials || []]
+    const builtinMaterials = getDefaultMaterials()
+    const extraMaterials = materials || []
+    store.materials = [...oldMaterials, ...builtinMaterials, ...extraMaterials]
     store.materialUis = { ...oldMaterialUis, ...materialUis }
     return () => {
       store.materials = oldMaterials;

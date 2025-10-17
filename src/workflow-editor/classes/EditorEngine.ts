@@ -7,7 +7,7 @@ import { IBranchNode, IRouteNode, IWorkFlowNode, NodeType } from "../interfaces"
 import { Action, ActionType, AddNodeAction, ChangeNodeAction, DeleteNodeAction, SelectNodeAction, SetErrorsAction, SetStartNodeAction, SetValidatedAction, UnRedoListAction } from "../actions"
 import { IMaterialUIs, INodeMaterial, Translate } from "../interfaces/material"
 import { createUuid } from "../utils/create-uuid"
-import { defaultMaterials } from "../FlowEditor/defaultMaterials"
+import { getDefaultMaterials } from "../FlowEditor/defaultMaterials"
 
 export class EditorEngine {
   store: Store<IState>
@@ -24,7 +24,7 @@ export class EditorEngine {
 
   // 初始化startNode，应用defaultConfig
   private initStartNode() {
-    const startMaterial = defaultMaterials.find(m => m.defaultConfig?.nodeType === NodeType.start)
+    const startMaterial = getDefaultMaterials().find(m => m.defaultConfig?.nodeType === NodeType.start)
     if (startMaterial?.defaultConfig) {
       const startNode = this.store.getState().startNode
       // 合并defaultConfig到startNode，但保留原始id

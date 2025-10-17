@@ -1,31 +1,6 @@
-export enum NodeType {
-  //开始节点
-  start = "start",
-  //审批人
-  approver = "approver",
-  //抄送人？
-  notifier = "notifier",
-  //处理人？
-  audit = "audit",
-  //路由(条件节点)，下面包含分支节点
-  route = "route",
-  //分支节点
-  condition = "condition",
-  // 规则校验节点
-  rule = "rule",
-  // 错别字检查节点
-  spellCheck = "spellCheck",
-  // 生成批注节点
-  generateComment = "generateComment",
-  // 语法检测节点
-  typoCheck = "typoCheck",
-  // 参考标准检查节点
-  annotateReferencesAgent =  "AnnotateReferencesAgent ",
-  // 章节连续性检查节点
-  chapterContinuityCheckerAgent = "ChapterContinuityCheckerAgent",
-  // 智能体节点
-  agent = "agent",
-}
+import type { NodeTypeValue } from "./node-types";
+export { NodeType, setNodeTypeConfig, resetNodeTypeConfig, builtinNodeTypeConfig } from "./node-types";
+export type { NodeTypeValue } from "./node-types";
 
 //审批流节点
 export interface IWorkFlowNode<Config = unknown> {
@@ -33,7 +8,7 @@ export interface IWorkFlowNode<Config = unknown> {
   //名称
   name?: string
   //string可以用于自定义节点，暂时用不上
-  nodeType: NodeType | string
+  nodeType: NodeTypeValue | string
   //描述
   desc?: string
   //子节点
