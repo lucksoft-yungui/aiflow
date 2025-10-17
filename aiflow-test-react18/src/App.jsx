@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { WorkflowEditor } from '@lucksoft/aiflow-editor'
+import { WorkflowEditor } from './editor'
 import { Button, Space, message, Upload, Input, Modal } from 'antd'
 import { UploadOutlined, FileOutlined, CodeOutlined, SaveOutlined, ImportOutlined, ExportOutlined, SearchOutlined } from '@ant-design/icons'
 import './App.css'

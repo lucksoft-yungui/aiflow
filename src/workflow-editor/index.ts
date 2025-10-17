@@ -4,3 +4,5 @@ export * from "./hooks"
 export * from "./interfaces"
 export * from "./theme"
 export * from "./FlowEditor"
+export * from "./react-locales"
+

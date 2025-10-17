@@ -1,0 +1,21 @@
+.form-card {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+  background: #fff;
+}
+
+.form-card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.form-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

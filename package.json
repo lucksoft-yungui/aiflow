@@ -1,6 +1,6 @@
 {
   "name": "@lucksoft/aiflow-editor",
-  "version": "0.1.23",
+  "version": "1.0.1",
   "private": false,
   "description": "审批流程编辑器组件",
   "author": "Lucksoft",
