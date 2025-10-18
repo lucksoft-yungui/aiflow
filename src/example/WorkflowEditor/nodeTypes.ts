@@ -14,6 +14,7 @@ const nodeTypeConfig: INodeTypeConfig = {
   annotateReferencesAgent: "AnnotateReferencesAgent ",
   chapterContinuityCheckerAgent: "ChapterContinuityCheckerAgent",
   agent: "agent",
+  task: "task",
 };
 
 setNodeTypeConfig(nodeTypeConfig);

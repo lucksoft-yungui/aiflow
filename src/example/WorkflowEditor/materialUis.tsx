@@ -114,4 +114,11 @@ export const materialUis: IMaterialUIs = {
     },
     canOpenSettings: false
   },
+  [NodeType.task]: {
+    viewContent: (node, { t }) => (
+      <ContentPlaceholder text={node.agent?.title || 'test'} />
+    ),
+    settersPanel: RulePanel,
+    canOpenSettings: true,
+  },
 } 

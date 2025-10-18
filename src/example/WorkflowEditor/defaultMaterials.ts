@@ -165,6 +165,18 @@ const customDefaultMaterials: INodeMaterial[] = [
       }
     },
   },
+  {
+    color: "#ff943e",
+    label: "task",
+    icon: ruleIcon,
+    defaultConfig: {
+      nodeType: NodeType.task,
+      agent: {
+        key: "TaskKey",
+      },
+      canDebug: true,
+    },
+  }
 ];
 
 setDefaultMaterials(customDefaultMaterials);
