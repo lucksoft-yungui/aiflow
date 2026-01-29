@@ -12,7 +12,7 @@ import { RulePanel } from "./setters/RulePanel";
 export const materialUis = {
   [NodeType.approver]: {
     viewContent: (_node, { t }) => (
-      <ContentPlaceholder secondary text={t("pleaseChooseApprover")} />
+      <ContentPlaceholder secondary text={_node.agent?.config?.approver?.userName ||t("pleaseChooseApprover")} />
     ),
     settersPanel: ApproverPanel,
     validate: (node, { t }) => {
@@ -24,7 +24,7 @@ export const materialUis = {
   },
   [NodeType.audit]: {
     viewContent: (_node, { t }) => (
-      <ContentPlaceholder secondary text={t("pleaseChooseDealer")} />
+      <ContentPlaceholder secondary text={_node.agent?.config?.audit?.userName ||t("pleaseChooseDealer")} />
     ),
     settersPanel: AuditPanel,
     validate: (node, { t }) => {
@@ -49,7 +49,7 @@ export const materialUis = {
   },
   [NodeType.notifier]: {
     viewContent: (_node, { t }) => (
-      <ContentPlaceholder text={t("pleaseChooseNotifier")} />
+      <ContentPlaceholder text={_node.agent?.config?.notifier?.userName || t("pleaseChooseNotifier")} />
     ),
     settersPanel: NotifierPanel,
   },

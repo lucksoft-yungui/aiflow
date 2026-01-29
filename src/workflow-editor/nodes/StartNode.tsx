@@ -6,8 +6,9 @@ import { RightOutlined } from "@ant-design/icons"
 import { ChildNode } from "./ChildNode"
 import { NodeWrap, NodeWrapBox, NodeContent } from "./NormalNode"
 import { EndNode } from "./EndNode"
-import { useEditorEngine } from "../hooks"
-import { NodeTitleShell } from "./NodeTitle"
+import { useEditorEngine, useReadOnly } from "../hooks"
+import { NodeColorDot, NodeTitleShell } from "./NodeTitle"
+import { NodeStateBadge, getStateColor } from "./NodeStateBadge"
 import { useNodeMaterial } from "../hooks/useNodeMaterial"
 import { useMaterialUI } from "../hooks/useMaterialUI"
 import { ErrorTip } from "./ErrorTip"
@@ -17,6 +18,7 @@ export const StartNode = memo(() => {
   const t = useTranslate()
   const materialUi = useMaterialUI(startNode)
   const store = useEditorEngine();
+  const readOnly = useReadOnly()
   const material = useNodeMaterial(startNode)
   const handleClick = useCallback(() => {
     store?.selectNode(startNode?.id)
@@ -25,8 +27,10 @@ export const StartNode = memo(() => {
   return (
     <NodeWrap className="node-wrap start">
       <NodeWrapBox className="node-wrap-box" onClick={handleClick}>
-        <NodeTitleShell className="node-title start-node-title" style={{ backgroundColor: material?.color }}>
+        <NodeTitleShell className="node-title start-node-title" style={{ backgroundColor: readOnly ? getStateColor(startNode?.state, material?.color || "#5b6b8f") : material?.color }}>
+          {readOnly && <NodeColorDot $color={material?.color} />}
           {t(material?.label || "")}
+          <NodeStateBadge state={startNode?.state} alignRight />
         </NodeTitleShell>
         <NodeContent className="content">
           {materialUi?.viewContent && materialUi?.viewContent(startNode, { t })}

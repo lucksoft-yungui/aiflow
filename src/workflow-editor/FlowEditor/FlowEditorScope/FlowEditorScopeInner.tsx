@@ -2,7 +2,7 @@ import { useToken } from "antd/es/theme/internal";
 import { memo, useMemo, useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { EditorEngine } from "../../classes";
-import { WorkflowEditorStoreContext } from "../../contexts";
+import { WorkflowEditorReadOnlyContext, WorkflowEditorStoreContext } from "../../contexts";
 import { INodeMaterial, IMaterialUIs, IWorkFlowNode } from "../../interfaces";
 import { useTranslate } from "../../react-locales";
 import { IThemeToken } from "../../theme";
@@ -19,8 +19,9 @@ export const FlowEditorScopeInner = memo((props: {
   initialJson?: IFlowJson | any, // 允许任何结构的数据
   jsonString?: string, // JSON字符串
   onNodeDedug?: (node: IWorkFlowNode) => void,
+  readOnly?: boolean,
 }) => {
-  const { mode, children, themeToken, materials, materialUis, initialJson, jsonString, onNodeDedug } = props;
+  const { mode, children, themeToken, materials, materialUis, initialJson, jsonString, onNodeDedug, readOnly } = props;
   const [, token] = useToken();
   const t = useTranslate();
   const [parsedJson, setParsedJson] = useState<any>(null);
@@ -92,11 +93,13 @@ export const FlowEditorScopeInner = memo((props: {
 
   return (
     <WorkflowEditorStoreContext.Provider value={store}>
-      <ThemeProvider theme={theme}>
-        {
-          store && children
-        }
-      </ThemeProvider>
+      <WorkflowEditorReadOnlyContext.Provider value={!!readOnly}>
+        <ThemeProvider theme={theme}>
+          {
+            store && children
+          }
+        </ThemeProvider>
+      </WorkflowEditorReadOnlyContext.Provider>
     </WorkflowEditorStoreContext.Provider>
   )
 })

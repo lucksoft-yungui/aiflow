@@ -7,7 +7,7 @@ import { canvasColor } from "../../utils/canvasColor"
 import { AddButton } from "../AddButton"
 import { ChildNode } from "../ChildNode"
 import { useTranslate } from "../../react-locales"
-import { useEditorEngine } from "../../hooks"
+import { useEditorEngine, useReadOnly } from "../../hooks"
 import { ConditionNodeTitle } from "./ConditionNodeTitle"
 import { useMaterialUI } from "../../hooks/useMaterialUI"
 import { ErrorTip } from "../ErrorTip"
@@ -169,6 +169,7 @@ export const BranchNode = memo((props: { parent: IRouteNode, node: IBranchNode, 
   const t = useTranslate()
   const editorStore = useEditorEngine()
   const materialUi = useMaterialUI(node)
+  const readOnly = useReadOnly()
 
   const handleClick = useCallback(() => {
     editorStore?.selectNode(node?.id)
@@ -189,22 +190,20 @@ export const BranchNode = memo((props: { parent: IRouteNode, node: IBranchNode, 
       <BranchStyleNode className="condition-node" draggable={false}>
         <BranchNodeBox className="condition-node-box" draggable={false}>
           <AutoJudge className="auto-judge" draggable={false} onClick={handleClick}>
-            {
-              index !== 0 &&
+            {!readOnly && index !== 0 && (
               <SortHandler className="sort-handler left" onClick={hanldeMoveLeft}>
                 &lt;
               </SortHandler>
-            }
+            )}
             <ConditionNodeTitle node={node} parent={parent} index={index} />
             <NodeContent className="content">
               {materialUi?.viewContent && materialUi?.viewContent(node, { t })}
             </NodeContent>
-            {
-              index !== (length - 1) &&
+            {!readOnly && index !== (length - 1) && (
               <SortHandler className="sort-handler right" onClick={handleMoveRight}>
                 &gt;
               </SortHandler>
-            }
+            )}
             <ErrorTip nodeId={node.id} />
           </AutoJudge>
           {node?.id && <AddButton nodeId={node?.id} />}

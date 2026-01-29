@@ -30,6 +30,8 @@ export const FlowEditorScope = memo((props: {
   jsonString?: string,
   //节点调试
   onNodeDedug?: (node: IWorkFlowNode) => void,
+  //只读/预览模式
+  readOnly?: boolean,
 }) => {
   const { children, lang, locales, defaultLocales, ...other } = props
   const baseLocales = useMemo(() => defaultLocales || {}, [defaultLocales])

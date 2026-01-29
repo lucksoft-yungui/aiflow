@@ -4,8 +4,9 @@ import { styled } from "styled-components"
 import { ConditionButtons } from "./ConditionButtons"
 import { ConditionPriority } from "./ConditionPriority"
 import { useTranslate } from "../../react-locales"
-import { useEditorEngine } from "../../hooks"
+import { useEditorEngine, useReadOnly } from "../../hooks"
 import { Input, TitleResponse } from "../NodeTitle"
+import { NodeStateBadge } from "../NodeStateBadge"
 
 const TitleWrapper = styled.div`
   position: relative;
@@ -45,15 +46,19 @@ export const ConditionNodeTitle = memo((
 
   const t = useTranslate()
   const editorStore = useEditorEngine()
+  const readOnly = useReadOnly()
 
   const changeName = useCallback(() => {
     editorStore?.changeCondition(parent, { ...node, name: inputValue })
   }, [editorStore, inputValue, node, parent])
 
   const handleNameClick = useCallback((e: React.MouseEvent) => {
+    if (readOnly) {
+      return
+    }
     e.stopPropagation()
     setEditting(true)
-  }, [])
+  }, [readOnly])
 
   const handleInputClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation()
@@ -82,12 +87,13 @@ export const ConditionNodeTitle = memo((
             <TitleText>
               {node.name || t("condition")}
             </TitleText>
+            <NodeStateBadge state={node.state} alignRight />
           </TitleResponse>
-          <ConditionButtons parent={parent} node={node} />
+          {!readOnly && <ConditionButtons parent={parent} node={node} />}
         </>
       }
       {
-        editting && <Input
+        editting && !readOnly && <Input
           autoFocus
           value={inputValue}
           onClick={handleInputClick}

@@ -5,6 +5,7 @@ import { canvasColor } from "../utils/canvasColor"
 import { ZoomBar } from "./ZoomBar"
 import { SettingsPanel } from "./SettingsPanel"
 import { OperationBar } from "./OperationBar"
+import { useReadOnly } from "../hooks"
 
 const CanvasContainer = styled.div`
   flex: 1;
@@ -50,6 +51,7 @@ export const FlowEditorCanvas = memo((
   const [scrolled, setScrolled] = useState(false)
   const [mousePressedPoint, setMousePressedPoint] = useState<IPosition>()
   const canvasRef = useRef<HTMLDivElement>(null)
+  const readOnly = useReadOnly()
 
   const haneldZoomIn = useCallback(() => {
     setZoom(zoom => toDecimal(zoom < 3 ? (zoom + 0.1) : zoom))
@@ -121,14 +123,14 @@ export const FlowEditorCanvas = memo((
           <StartNode />
         </CanvasInner>
       </Canvas>
-      <OperationBar float={scrolled} />
+      {!readOnly && <OperationBar float={scrolled} />}
       <ZoomBar
         float={scrolled}
         zoom={zoom}
         onZoomIn={haneldZoomIn}
         onZoomOut={haneldZoomOut}
       />
-      <SettingsPanel />
+      {!readOnly && <SettingsPanel />}
     </CanvasContainer >
   )
 })

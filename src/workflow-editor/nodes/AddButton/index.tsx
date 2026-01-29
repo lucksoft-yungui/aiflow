@@ -3,6 +3,7 @@ import { Popover } from "antd"
 import { memo, useCallback, useState } from "react"
 import { styled } from "styled-components"
 import { ContentPanel } from "./ContentPanel"
+import { useReadOnly } from "../../hooks"
 
 const AddButtonBox = styled.div`
       width: 240px;
@@ -76,6 +77,7 @@ export const AddButton = memo((
 ) => {
   const { nodeId } = props
   const [open, setOpen] = useState(false)
+  const readOnly = useReadOnly()
 
   const handleOpenChange = useCallback((status: boolean) => {
     setOpen(status)
@@ -84,6 +86,18 @@ export const AddButton = memo((
   const handleMaterialClick = useCallback(() => {
     setOpen(false)
   }, [])
+
+  if (readOnly) {
+    return (
+      <AddButtonBox className="add-node-button-box">
+        <ButtonShell>
+          <div className="btn" style={{ visibility: "hidden" }}>
+            <PlusOutlined />
+          </div>
+        </ButtonShell>
+      </AddButtonBox>
+    )
+  }
 
   return (
     <AddButtonBox className="add-node-button-box">

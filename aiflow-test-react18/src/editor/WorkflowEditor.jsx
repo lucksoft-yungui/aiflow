@@ -16,6 +16,7 @@ export const WorkflowEditor = forwardRef((props, ref) => {
     initialJson,
     jsonString,
     onNodeDedug,
+    readOnly,
     ...other
   } = props || {};
 
@@ -30,6 +31,7 @@ export const WorkflowEditor = forwardRef((props, ref) => {
       initialJson={initialJson}
       jsonString={jsonString}
       onNodeDedug={onNodeDedug}
+      readOnly={readOnly}
     >
       <WorkFlowEditorInner ref={ref} {...other} />
     </FlowEditorScope>

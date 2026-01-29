@@ -2,11 +2,12 @@ import React, { memo, useCallback, useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { IWorkFlowNode } from "../interfaces";
 import { INodeMaterial } from "../interfaces/material";
-import { useEditorEngine } from "../hooks";
+import { useEditorEngine, useReadOnly } from "../hooks";
 import { Button, message } from "antd";
 import { copyIcon, debugIcon } from "../icons";
 import { createUuid } from "../utils/create-uuid";
 import { CloseOutlined } from "@ant-design/icons";
+import { NodeStateBadge, getStateColor } from "./NodeStateBadge";
 
 export const NodeTitleShell = styled.div<{ $disabled?: boolean }>`
   position: relative;
@@ -47,6 +48,16 @@ export const NodeTitleShell = styled.div<{ $disabled?: boolean }>`
 export const NodeIcon = styled.div`
   font-size: 14px;
   margin-right: 8px;
+`
+
+export const NodeColorDot = styled.span<{ $color?: string }>`
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: ${props => props.$color || "transparent"};
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9);
+  margin-right: 6px;
+  flex-shrink: 0;
 `
 
 export const TitleResponse = styled.div`
@@ -132,6 +143,7 @@ export const NodeTitle = memo((props: {
   const [canPaste, setCanPaste] = useState(false)
 
   const editorStore = useEditorEngine()
+  const readOnly = useReadOnly()
   
   // 检查agent是否被禁用
   const isAgentDisabled = node.agent?.rule?.enabled === false
@@ -155,9 +167,12 @@ export const NodeTitle = memo((props: {
   }, [editorStore, inputValue, node])
 
   const handleNameClick = useCallback((e: React.MouseEvent) => {
+    if (readOnly) {
+      return
+    }
     e.stopPropagation()
     setEditting(true)
-  }, [])
+  }, [readOnly])
 
   const handleInputClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation()
@@ -233,9 +248,11 @@ export const NodeTitle = memo((props: {
     }
   }, [editorStore, node]);
 
+  const titleBg = readOnly ? getStateColor(node.state, material?.color || "#5b6b8f") : material?.color
+
   return <NodeTitleShell 
     className="node-title" 
-    style={{ backgroundColor: material?.color, color: "#fff" }}
+    style={{ backgroundColor: titleBg, color: "#fff" }}
     $disabled={isAgentDisabled}
   >
     <NodeIcon>
@@ -244,9 +261,11 @@ export const NodeTitle = memo((props: {
     {!editting &&
       <>
         <TitleResponse onClick={handleNameClick}>
+          {readOnly && <NodeColorDot $color={material?.color} />}
           <NodeTitleText className="text" >{node.name}</NodeTitleText>
+          <NodeStateBadge state={node.state} alignRight />
         </TitleResponse>
-        <ButtonsContainer>
+        {!readOnly && <ButtonsContainer>
           {defaultConfig?.canDebug && <IconButton
             className="icon-btn copy-btn"
             type="text"
@@ -291,11 +310,11 @@ export const NodeTitle = memo((props: {
             onClick={handleClose}
             disabled={isAgentDisabled}
           />
-        </ButtonsContainer>
+        </ButtonsContainer>}
       </>
     }
     {
-      editting && <Input
+      editting && !readOnly && <Input
         autoFocus
         value={inputValue}
         onClick={handleInputClick}

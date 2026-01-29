@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { useTranslate } from "../../react-locales"
 import { nodeColor } from "../../utils/nodeColor"
 import { IRouteNode, NodeType } from "../../interfaces"
-import { useEditorEngine } from "../../hooks"
+import { useEditorEngine, useReadOnly } from "../../hooks"
 import { createUuid } from "../../utils/create-uuid"
 
 const AddBranch = styled.button`
@@ -50,6 +50,7 @@ export const AddBranchButton = memo((
   const { node } = props
   const t = useTranslate()
   const editorStore = useEditorEngine()
+  const readOnly = useReadOnly()
 
   const handleClick = useCallback(() => {
     const newId = createUuid()
@@ -60,6 +61,10 @@ export const AddBranchButton = memo((
     })
     editorStore?.selectNode(newId);
   }, [editorStore, node, t])
+
+  if (readOnly) {
+    return null
+  }
 
   return <AddBranch onClick={handleClick}>
     {t("addCondition")}

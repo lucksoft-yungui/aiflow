@@ -59,6 +59,48 @@ const customDefaultMaterials = [
       hidden: true,
     },
     {
+      color: "#3b82f6",
+      label: "audit",
+      defaultConfig: {
+        nodeType: NodeType.audit,
+        agent: {
+          key: "AuditAgent",
+          pretreatment: false,
+          rule: {
+            enabled: true,
+          }
+        }
+      },
+    },
+    {
+      color: "#f59e0b",
+      label: "approver",
+      defaultConfig: {
+        nodeType: NodeType.approver,
+        agent: {
+          key: "ApproverAgent",
+          pretreatment: false,
+          rule: {
+            enabled: true,
+          }
+        }
+      },
+    },
+    {
+      color: "#10b981",
+      label: "notifier",
+      defaultConfig: {
+        nodeType: NodeType.notifier,
+        agent: {
+          key: "NotifierAgent",
+          pretreatment: false,
+          rule: {
+            enabled: true,
+          }
+        }
+      },
+    },
+    {
       color: "#ff943e",
       label: "rule",
       icon: ruleIcon,

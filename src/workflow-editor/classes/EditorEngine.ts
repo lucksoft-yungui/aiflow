@@ -15,6 +15,7 @@ export class EditorEngine {
   materials: INodeMaterial[] = []
   materialUis: IMaterialUIs = {}
   onNodeDedug?: (node: IWorkFlowNode) => void
+  readOnly = false
   constructor(debugMode?: boolean,) {
     this.store = makeStoreInstance(debugMode || false)
     

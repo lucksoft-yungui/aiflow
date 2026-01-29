@@ -15,6 +15,8 @@ export interface IWorkFlowNode<Config = unknown> {
   childNode?: IWorkFlowNode
   //配置
   config?: Config,
+  //节点状态（预览用）
+  state?: string,
   // 智能体
   agent?: {
     key: string,

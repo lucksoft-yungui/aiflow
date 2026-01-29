@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { WorkflowEditor } from './editor'
+import { WorkflowEditor, WorkflowPreview } from './editor'
 import { Button, Space, message, Upload, Input, Modal } from 'antd'
 import { UploadOutlined, FileOutlined, CodeOutlined, SaveOutlined, ImportOutlined, ExportOutlined, SearchOutlined } from '@ant-design/icons'
 import './App.css'
@@ -63,6 +63,57 @@ const sampleFlowJson = {
   }
 };
 
+// 预览示例数据（包含节点状态）
+const previewFlowJson = {
+  startNode: {
+    nodeType: "start",
+    id: "start",
+    state: "done",
+    childNode: {
+      nodeType: "audit",
+      id: "b1347142-f407-4d50-b03c-dd135fd7b5f6",
+      name: "办理人",
+      agent: {
+        config: {
+          audit: {
+            userAccount: "user1",
+            userName: "李四2"
+          }
+        }
+      },
+      state: "pending",
+      childNode: {
+        nodeType: "approver",
+        id: "715d7324-11fc-4efd-a17c-3f2051a3fd91",
+        name: "审批人",
+        agent: {
+          config: {
+            approver: {
+              userAccount: "user2",
+              userName: "王文一1"
+            }
+          }
+        },
+        state: "todo",
+        childNode: {
+          nodeType: "notifier",
+          id: "10a8b261-beec-4c0c-acbc-04f1baa3a374",
+          name: "抄送人",
+          agent: {
+            config: {
+              notifier: {
+                userAccount: "user4",
+                userName: "张三test0119"
+              }
+            }
+          },
+          state: "todo"
+        }
+      }
+    }
+  }
+};
+
 function App() {
   const editorRef = useRef(null);
   const [flowJson, setFlowJson] = useState(null);
@@ -70,8 +121,11 @@ function App() {
   const [lang, setLang] = useState("zh-CN");
   const [initialJson, setInitialJson] = useState(undefined);
   const [jsonString, setJsonString] = useState(undefined);
+  const [previewJsonString, setPreviewJsonString] = useState(undefined);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [jsonTextArea, setJsonTextArea] = useState("");
+  const [isPreviewModalVisible, setIsPreviewModalVisible] = useState(false);
+  const [previewJsonTextArea, setPreviewJsonTextArea] = useState("");
   const [searchValue, setSearchValue] = useState("");
 
   // 同步主题模式
@@ -202,9 +256,24 @@ function App() {
     setIsModalVisible(true);
   }, [initialJson]);
 
+  // 打开预览JSON编辑器模态框
+  const handleOpenPreviewJsonEditor = useCallback(() => {
+    if (previewJsonString) {
+      setPreviewJsonTextArea(previewJsonString);
+    } else {
+      setPreviewJsonTextArea(JSON.stringify(previewFlowJson, null, 2));
+    }
+    setIsPreviewModalVisible(true);
+  }, [previewJsonString]);
+
   // 处理JSON文本变化
   const handleJsonTextChange = useCallback((e) => {
     setJsonTextArea(e.target.value);
+  }, []);
+
+  // 处理预览JSON文本变化
+  const handlePreviewJsonTextChange = useCallback((e) => {
+    setPreviewJsonTextArea(e.target.value);
   }, []);
 
   // 应用JSON字符串
@@ -218,6 +287,17 @@ function App() {
       message.warning('JSON字符串不能为空');
     }
   }, [jsonTextArea]);
+
+  // 应用预览JSON字符串
+  const handleApplyPreviewJsonString = useCallback(() => {
+    if (previewJsonTextArea.trim()) {
+      setPreviewJsonString(previewJsonTextArea);
+      setIsPreviewModalVisible(false);
+      message.success('已应用预览JSON字符串');
+    } else {
+      message.warning('预览JSON字符串不能为空');
+    }
+  }, [previewJsonTextArea]);
 
   // 使用ref调用导出方法
   const handleExport = useCallback(() => {
@@ -321,6 +401,12 @@ function App() {
             JSON编辑器
           </Button>
           <Button
+            icon={<CodeOutlined />}
+            onClick={handleOpenPreviewJsonEditor}
+          >
+            预览JSON
+          </Button>
+          <Button
             icon={<SaveOutlined />}
             onClick={handleGetData}
           >
@@ -356,23 +442,48 @@ function App() {
         </Space>
       </div>
       
-      <div className="editor-wrapper">
-        <WorkflowEditor
-          ref={editorRef}
-          themeMode={themeMode}
-          themeToken={themeMode === 'dark' ? {
-            colorTextSecondary: 'rgba(255, 255, 255, 0.65)',
-            colorBgContainer: '#2a2a2a',
-            colorBorder: 'transparent',
-            colorText: '#ffffff',
-            colorPrimary: '#1668dc',
-            colorBgBase: '#1f1f1f'
-          } : undefined}
-          lang={lang}
-          initialJson={initialJson}
-          jsonString={jsonString}
-          style={{ width: '100%', height: '100%' }}
-        />
+      <div className="editor-preview-wrapper">
+        <div className="panel">
+          <div className="panel-header">流程编辑器</div>
+          <div className="panel-body">
+            <WorkflowEditor
+              ref={editorRef}
+              themeMode={themeMode}
+              themeToken={themeMode === 'dark' ? {
+                colorTextSecondary: 'rgba(255, 255, 255, 0.65)',
+                colorBgContainer: '#2a2a2a',
+                colorBorder: 'transparent',
+                colorText: '#ffffff',
+                colorPrimary: '#1668dc',
+                colorBgBase: '#1f1f1f'
+              } : undefined}
+              lang={lang}
+              initialJson={initialJson}
+              jsonString={jsonString}
+              style={{ width: '100%', height: '100%' }}
+            />
+          </div>
+        </div>
+        <div className="panel preview">
+          <div className="panel-header">流程预览（只读）</div>
+          <div className="panel-body">
+            <WorkflowPreview
+              themeMode={themeMode}
+              themeToken={themeMode === 'dark' ? {
+                colorTextSecondary: 'rgba(255, 255, 255, 0.65)',
+                colorBgContainer: '#2a2a2a',
+                colorBorder: 'transparent',
+                colorText: '#ffffff',
+                colorPrimary: '#1668dc',
+                colorBgBase: '#1f1f1f'
+              } : undefined}
+              lang={lang}
+              initialJson={previewFlowJson}
+              jsonString={previewJsonString}
+              style={{ width: '100%', height: '100%' }}
+            />
+          </div>
+        </div>
       </div>
 
       <Modal
@@ -400,6 +511,27 @@ function App() {
           onChange={handleJsonTextChange}
           rows={20}
           placeholder="输入有效的JSON字符串"
+        />
+      </Modal>
+      <Modal
+        title="预览JSON编辑器"
+        open={isPreviewModalVisible}
+        onCancel={() => setIsPreviewModalVisible(false)}
+        width={800}
+        footer={[
+          <Button key="cancel" onClick={() => setIsPreviewModalVisible(false)}>
+            取消
+          </Button>,
+          <Button key="apply" type="primary" onClick={handleApplyPreviewJsonString}>
+            应用预览
+          </Button>,
+        ]}
+      >
+        <TextArea
+          value={previewJsonTextArea}
+          onChange={handlePreviewJsonTextChange}
+          rows={20}
+          placeholder="输入有效的预览JSON字符串"
         />
       </Modal>
     </div>
